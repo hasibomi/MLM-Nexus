@@ -1,0 +1,15 @@
+[28-Oct-2014 18:35:16 UTC] PHP Warning:  require(/home/hasibomi/public_html/mlm/../bootstrap/autoload.php): failed to open stream: No such file or directory in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 18:35:16 UTC] PHP Fatal error:  require(): Failed opening required '/home/hasibomi/public_html/mlm/../bootstrap/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 18:35:19 UTC] PHP Warning:  require(/home/hasibomi/public_html/mlm/../bootstrap/autoload.php): failed to open stream: No such file or directory in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 18:35:19 UTC] PHP Fatal error:  require(): Failed opening required '/home/hasibomi/public_html/mlm/../bootstrap/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 18:35:25 UTC] PHP Warning:  require(/home/hasibomi/public_html/mlm/../bootstrap/autoload.php): failed to open stream: No such file or directory in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 18:35:25 UTC] PHP Fatal error:  require(): Failed opening required '/home/hasibomi/public_html/mlm/../bootstrap/autoload.php' (include_path='.:/usr/lib/php:/usr/local/lib/php') in /home/hasibomi/public_html/mlm/index.php on line 21
+[28-Oct-2014 20:03:39 UTC] PHP Warning:  Uncaught exception 'ErrorException' with message 'Undefined variable: picture' in /home/hasibomi/mlm/app/storage/views/5c6affe3b5ccd10c78ec7f5fa08d0ae5:81
+Stack trace:
+#0 /home/hasibomi/mlm/app/storage/views/5c6affe3b5ccd10c78ec7f5fa08d0ae5(81): Illuminate\Exception\Handler->handleError(8, 'Undefined varia...', '/home/hasibomi/...', 81, Array)
+#1 /home/hasibomi/mlm/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(37): include('/home/hasibomi/...')
+#2 /home/hasibomi/mlm/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(56): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/hasibomi/...', Array)
+#3 /home/hasibomi/mlm/vendor/laravel/framework/src/Illuminate/View/View.php(134): Illuminate\View\Engines\CompilerEngine->get('/home/hasibomi/...', Array)
+#4 /home/hasibomi/mlm/vendor/laravel/framework/src/Illuminate/View/View.php(102): Illuminate\View\View->getContents()
+#5 /home/hasibomi/mlm/vendor/laravel/framework/src/Illuminate/View/View.php(76): Illuminate\View\View->re in /home/hasibomi/mlm/app/storage/views/5c6affe3b5ccd10c78ec7f5fa08d0ae5 on line 81
+[28-Oct-2014 20:03:39 UTC] PHP Fatal error:  Call to a member function first() on a non-object in /home/hasibomi/mlm/app/storage/views/5c6affe3b5ccd10c78ec7f5fa08d0ae5 on line 81
