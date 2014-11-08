@@ -12,6 +12,7 @@ $catagory = '';
 $view_catagory = '';
 $product_catagory = '';
 $edit_product = '';
+$user_management = '';
 
 if ($base == 'admin/account') {
 	$account = 'active';
@@ -42,6 +43,12 @@ if ($base == 'admin/account') {
 	$edit_product = 'active';
 	$product_catagory = 'active';
 	$title = 'Edit Product';
+} else if ( $base == 'admin/usermanagement' ) {
+	$user_management = 'active';
+	$title = 'User Management';
+} else if ( $base == 'admin/user/{id}' ) {
+	$user_management = 'active';
+	$title = 'User Management';
 }
 ?>
 <!DOCTYPE html>
@@ -99,7 +106,7 @@ if ($base == 'admin/account') {
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/mlm/admin"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
+							<a href="/admin"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -119,7 +126,7 @@ if ($base == 'admin/account') {
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li>
-									<a href="/mlm/admin/account" class="{{ $account }}">
+									<a href="/admin/account" class="{{ $account }}">
 										<?php
 										$admin = User::select('profile_picture', 'name')->where('id', '=', Auth::id())->get();
 										?>
@@ -133,12 +140,12 @@ if ($base == 'admin/account') {
 									</a>
 								</li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="/mlm/admin/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="/mlm/admin/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="/admin/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="/admin/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								@if (Auth::check())
-									<li><a href="/mlm/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
 								@else
-									<li><a href="/mlm/admin/login"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="/admin/login"><i class="fa fa-lock"></i> Login</a></li>
 								@endif
 							</ul>
 						</div>
@@ -161,18 +168,20 @@ if ($base == 'admin/account') {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/mlm/admin" class="{{ $home }}">Home</a></li>
+								<li><a href="/admin" class="{{ $home }}">Home</a></li>
 								<li class="dropdown"><a href="javascript:;" class="{{ $productMenu }}">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                    	<li><a href="/mlm/admin/add-product" class="{{ $addProduct }}">Add Product</a></li>
-                                        <li><a href="/mlm/admin/shop" class="{{ $shop }}">Products</a></li>
+                                    	<li><a href="/admin/add-product" class="{{ $addProduct }}">Add Product</a></li>
+                                        <li><a href="/admin/shop" class="{{ $shop }}">Products</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="javascript:;" class="{{ $product_catagory }}">Product Catagory<i class="fa fa-angle-down"></i></a>
                                 	<ul class="sub-menu" role="menu">
-                                		<li><a href="/mlm/admin/catagory" class="{{ $catagory }}">Add Catagory</a></li>
-                                		<li><a href="/mlm/admin/view-catagory" class="{{ $view_catagory }}">View Catagory</a></li>
+                                		<li><a href="/admin/catagory" class="{{ $catagory }}">Add Catagory</a></li>
+                                		<li><a href="/admin/view-catagory" class="{{ $view_catagory }}">View Catagory</a></li>
                                 	</ul>
+                                </li>
+                                <li><a href="/admin/usermanagement" class="{{ $user_management }}">User Management</a>
                                 </li>
 							</ul>
 						</div>
@@ -289,5 +298,8 @@ if ($base == 'admin/account') {
         	});
         });
     </script>
+    
+    @yield('script')
+    
 </body>
 </html>

@@ -213,6 +213,12 @@ Route::group(array('before' => 'auth'), function() {
         'uses'  => 'ProductController@productDetailsPage'
     ));
 	
+	// User management
+	Route::get('/admin/usermanagement', array('as' => 'user-management-page', 'uses' => 'UserManagement@userManagementPage'));
+	Route::get('/admin/user/{id}', array('as' => 'user-view', 'uses' => 'UserManagement@viewUser'));
+	Route::get('/admin/user/activate/{id}', array('as' => 'user-active', 'uses' => 'UserManagement@activeUser'));
+	Route::get('/admin/user/deactivate/{id}', array('as' => 'user-deactive', 'uses' => 'UserManagement@deactiveUser'));
+	
 	Route::group(array('before' => 'csrf'), function() {
 		
 		// Add product catagory

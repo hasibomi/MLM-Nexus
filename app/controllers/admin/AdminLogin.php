@@ -46,7 +46,7 @@ class AdminLogin extends BaseController {
 							 ));
 		} else {
 			return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">You are not loged in!</p>');
+					  ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 		}
 	}
 	
@@ -68,7 +68,7 @@ class AdminLogin extends BaseController {
 			}
 		} else {
 			return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">You are not loged in!</p>');
+					  ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 		}
 	}
 	
@@ -109,7 +109,7 @@ class AdminLogin extends BaseController {
 				return Redirect::route('admin-home');
 			} else {
 				return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">Wrong email or password</p>');
+					  ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Wrong email or password</p>');
 			}
 		}
 	}
@@ -124,7 +124,7 @@ class AdminLogin extends BaseController {
 			return Redirect::route('admin-login');
 		} else {
 			return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">You are not loged in!</p>');
+					  ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 		}
 	}
 }

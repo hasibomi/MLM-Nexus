@@ -129,7 +129,7 @@ if ($base == '/') {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/mlm" class="<?= $home; ?>">Home</a></li>
+								<li><a href="/" class="<?= $home; ?>">Home</a></li>
 								<li class="dropdown"><a href="#" class="<?= $productMenu; ?>">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
                                         <li><a href="shop" class="<?= $shop; ?>">Products</a></li>
