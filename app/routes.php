@@ -1,5 +1,11 @@
 <?php
 
+Route::get('updateapp', function()
+{
+    Artisan::call('dump-autoload');
+    echo 'dump-autoload complete';
+});
+
 Route::get('/', array(
 	'as'	=> 'home',
 	'uses'	=> 'HomeController@home'
@@ -219,6 +225,11 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('/admin/user/activate/{id}', array('as' => 'user-active', 'uses' => 'UserManagement@activeUser'));
 	Route::get('/admin/user/deactivate/{id}', array('as' => 'user-deactive', 'uses' => 'UserManagement@deactiveUser'));
 	
+	// Content Management
+	Route::get( '/admin/manage-content', array( 'as' => 'manage-content-page', 'uses' => 'ContentManagement@index' ) );
+	Route::get( '/admin/add-content', array( 'as' => 'add-content-page', 'uses' => 'ContentManagement@addContent' ) );
+    Route::get('/admin/change-settings', array('as' => 'change-settings-page', 'uses' => 'ContentManagement@settings'));
+	
 	Route::group(array('before' => 'csrf'), function() {
 		
 		// Add product catagory
@@ -244,7 +255,10 @@ Route::group(array('before' => 'auth'), function() {
 			'as'	=> 'edit-catagory',
 			'uses'	=> 'ProductController@editCatagory'
 		));
-		
+
+        // Content Management
+        Route::post( '/admin/addContent', array('as' => 'add-content', 'uses' => 'ContentManagement@store') );
+        Route::post('/admin/changeSettings', array('as' => 'change-settings', 'uses' => 'ContentManagement@change'));
 		
 	});
 	

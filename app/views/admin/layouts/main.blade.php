@@ -13,6 +13,7 @@ $view_catagory = '';
 $product_catagory = '';
 $edit_product = '';
 $user_management = '';
+$content_management = '';
 
 if ($base == 'admin/account') {
 	$account = 'active';
@@ -49,6 +50,9 @@ if ($base == 'admin/account') {
 } else if ( $base == 'admin/user/{id}' ) {
 	$user_management = 'active';
 	$title = 'User Management';
+} else if ( $base == 'admin/manage-content' ) {
+	$content_management = 'active';
+	$title = 'Content Management';
 }
 ?>
 <!DOCTYPE html>
@@ -183,6 +187,7 @@ if ($base == 'admin/account') {
                                 </li>
                                 <li><a href="/admin/usermanagement" class="{{ $user_management }}">User Management</a>
                                 </li>
+								<li><a href="/admin/manage-content" class="{{ $content_management }}">Manage Content</a></li>
 							</ul>
 						</div>
 					</div>
