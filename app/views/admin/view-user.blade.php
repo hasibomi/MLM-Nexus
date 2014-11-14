@@ -50,6 +50,16 @@
                                 		: {{ $user->first()->address }}
                                 	</div>
                                 </div>
+                                <div class="row"><br></div>
+                                <div class="row">
+                                   <div class="col-md-3">
+                                        @if ($user->first()->active == 1)
+                                            <a class="id btn btn-danger" href="/admin/user/deactivate/{{ $user->first()->id }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
+                                        @else
+                                            <a class="id btn btn-success" href="/admin/user/activate/{{ $user->first()->id }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.product-information -->
                         </div>
@@ -65,5 +75,19 @@
         </div>
         
     </section>
+    
+    @section('script')
+    	<script>
+        	$(document).ready( function() {
+				$('.id').click( function(e) {
+					var conf = confirm( 'Are you sure' );
+					
+					if ( ! conf ) {
+						e.preventDefault();
+					}
+				} );
+			} );
+        </script>
+    @stop
     
 @stop

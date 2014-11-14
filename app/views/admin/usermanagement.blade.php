@@ -28,9 +28,9 @@
                             <td>{{ $user->point }}</td>
                             <td>
                             	@if ($user->active == 1)
-                                	<a class="id" href="/admin/user/deactivate/{{ $user->id }}">Deactivate</a>
+                                	<a class="id btn btn-danger btn-xs" href="/admin/user/deactivate/{{ $user->id }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
                                 @else
-                                	<a class="id" href="/admin/user/activate/{{ $user->id }}">Activate</a>
+                                	<a class="id btn btn-success btn-xs" href="/admin/user/activate/{{ $user->id }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
                                 @endif
                             </td>
                         </tr>

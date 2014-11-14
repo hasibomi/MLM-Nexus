@@ -14,6 +14,7 @@ $product_catagory = '';
 $edit_product = '';
 $user_management = '';
 $content_management = '';
+$slider = '';
 
 if ($base == 'admin/account') {
 	$account = 'active';
@@ -53,6 +54,10 @@ if ($base == 'admin/account') {
 } else if ( $base == 'admin/manage-content' ) {
 	$content_management = 'active';
 	$title = 'Content Management';
+} else if ($base == 'admin/slider') {
+    $slider = 'active';
+    $content_management = 'active';
+    $title = 'Slider';
 }
 ?>
 <!DOCTYPE html>

@@ -229,6 +229,20 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get( '/admin/manage-content', array( 'as' => 'manage-content-page', 'uses' => 'ContentManagement@index' ) );
 	Route::get( '/admin/add-content', array( 'as' => 'add-content-page', 'uses' => 'ContentManagement@addContent' ) );
     Route::get('/admin/change-settings', array('as' => 'change-settings-page', 'uses' => 'ContentManagement@settings'));
+    Route::get('/admin/slider', array('as' => 'slider-page', 'uses' => 'SliderController@index'));
+    Route::get('/admin/add-slider', array('as' => 'add-slider-page', 'uses' => 'SliderController@addSliderPage'));
+    Route::get('/admin/getId', function()
+    {
+        if (Request::ajax())
+        {
+            $query  = Slider::get();
+            foreach ($query as $row)
+            {
+                $id     = $row->slider_id;
+            }
+            return $id + 1;
+        }
+    });
 	
 	Route::group(array('before' => 'csrf'), function() {
 		
@@ -259,6 +273,7 @@ Route::group(array('before' => 'auth'), function() {
         // Content Management
         Route::post( '/admin/addContent', array('as' => 'add-content', 'uses' => 'ContentManagement@store') );
         Route::post('/admin/changeSettings', array('as' => 'change-settings', 'uses' => 'ContentManagement@change'));
+        Route::post('/admin/add-slider-post', array('as' => 'add-slider', 'uses' => 'SliderController@addSlider'));
 		
 	});
 	

@@ -57,7 +57,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/mlm/user"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
+							<a href="/user"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -77,7 +77,7 @@
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li>
-									<a href="/mlm/user/account">
+									<a href="/user/account">
 										<?php
 										$picture = User::select('profile_picture', 'name')->where('id', '=', Auth::id());
 										?>
@@ -85,12 +85,12 @@
 									</a>
 								</li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="/mlm/user/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="/mlm/user/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="/user/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="/user/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								@if (Auth::check())
-									<li><a href="/mlm/logout"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="/logout"><i class="fa fa-lock"></i> Logout</a></li>
 								@else
-									<li><a href="/mlm/login"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="/login"><i class="fa fa-lock"></i> Login</a></li>
 								@endif
 							</ul>
 						</div>
@@ -113,15 +113,15 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/mlm/user" class="active">Home</a></li>
+								<li><a href="/user" class="active">Home</a></li>
 								<li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/mlm/user/shop">Products</a></li>
-										<li><a href="/mlm/user/checkout">Checkout</a></li> 
-										<li><a href="/mlm/user/cart">Cart</a></li> 
+                                        <li><a href="/user/shop">Products</a></li>
+										<li><a href="/user/checkout">Checkout</a></li> 
+										<li><a href="/user/cart">Cart</a></li> 
                                     </ul>
                                 </li>
-								<li><a href="/mlm/user/contact-us">Contact</a></li>
+								<li><a href="/user/contact-us">Contact</a></li>
 							</ul>
 						</div>
 					</div>
@@ -302,5 +302,7 @@
     <script src="<?php echo asset('js/jquery.prettyPhoto.js'); ?>"></script>
     <script src="<?php echo asset('js/main.js'); ?>"></script>
     <script src="<?= asset('js/user/account.js')?>"></script>
+    
+    @yield('script')
 </body>
 </html>

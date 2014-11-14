@@ -6,7 +6,7 @@
         
         <div class="row">
             <a href="/admin/add-content" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add content</a>
-            <a class="btn btn-warning" href="/admin/change-settings"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
+            <a href="/admin/slider" class="btn btn-success">Slider</a>
         </div>
             
         <br>
