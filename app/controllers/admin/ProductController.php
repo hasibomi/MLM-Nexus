@@ -111,7 +111,7 @@ class ProductController extends BaseController
 				$file_name 		= $file->getClientOriginalName();
 				$file_type 		= $file->getMimeType();
 				$file_size 		= $file->getSize()/1000;
-				$destination 	= public_path('/mlm/images/shop/');
+				$destination 	= public_path('/images/shop/');
 				
 				if ($file_type == 'image/jpg' || $file_type == 'image/jpeg' || $file_type == 'image/png') {
 					if ($file_size <= 2000) {

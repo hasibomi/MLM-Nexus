@@ -1,14 +1,23 @@
 @extends('admin.layouts.main')
 
+@section('css')
+  {{ HTML::style('redactor/redactor.css')}}
+@stop
+
 @section('content')
 
+	@if($errors->all())
+		<div class="container">
+			<div class="row alert alert-danger">
+				@foreach($errors->all() as $error)
+					{{ $error }}
+					<br />
+				@endforeach
+			</div>
+		</div>
+	@endif
+
     <div class="container">
-       
-        <div class="row">
-            @if(Session::has('event'))
-                {{ Session::get('event') }}
-            @endif
-        </div>
         
         <div class="col-md-8">
             
@@ -16,51 +25,16 @@
                 
                 <div class="form-group">
                     <div class="row">
-                        {{ Form::hidden('getId') }}
+                        {{ Form::hidden('getId', $query) }}
                         {{ Form::label('text', 'Image Text') }}
-                        {{ Form::textarea('text', '', ['placeholder' => 'Image text']) }}
+                        {{ Form::textarea('text', '', ['placeholder' => 'Image text', 'id'=>'editor']) }}
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <div class="row">
-                        {{ Form::label('slider1', 'Image 1') }}
-                        {{ Form::file('slider1') }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row">
-                        {{ Form::label('slider2', 'Image 2') }}
-                        {{ Form::file('slider2') }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row">
-                        {{ Form::label('slider3', 'Image 3') }}
-                        {{ Form::file('slider3') }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row">
-                        {{ Form::label('slider4', 'Image 4') }}
-                        {{ Form::file('slider4') }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row">
-                        {{ Form::label('slider5', 'Image 5') }}
-                        {{ Form::file('slider5') }}
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <div class="row">
-                        {{ Form::label('slider6', 'Image 6') }}
-                        {{ Form::file('slider6') }}
+                        {{ Form::label('slider', 'Image') }}
+                        {{ Form::file('slider') }}
                     </div>
                 </div>
                 
@@ -77,32 +51,13 @@
     </div>
     {{-- /.container --}}
     
-    @section('script')
-        {{ HTML::script('tinymce/tinymce.min.js') }}
+    @section ('script')
+        {{ HTML::script('redactor/redactor.js') }}
         <script>
-            tinymce.init({
-                selector: "textarea"
-            });
+        $("#editor").redactor({
+          minHeight: 200
+        });
         </script>
-        
-        <script>
-            function getId()
-            {
-                $.ajax({
-                    url: '/admin/getId',
-                    method: 'GET',
-                    dataType: 'HTML',
-                    success: function(data) {
-                        $("input[name=getId]").val(data);
-                    }
-                });
-            }
-            
-            $(document).ready(function() {
-                getId();
-            });
-        </script>
-            
-    @stop
+  @stop
 
 @stop

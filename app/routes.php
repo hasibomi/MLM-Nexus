@@ -160,7 +160,7 @@ Route::group(array('before' => 'guest'), function() {
  
 
 // Authenticated group
-Route::group(array('before' => 'auth'), function() {
+Route::group(array('before' => 'admin'), function() {
 	/**
 	 * Admin home page
 	 */
@@ -228,9 +228,17 @@ Route::group(array('before' => 'auth'), function() {
 	// Content Management
 	Route::get( '/admin/manage-content', array( 'as' => 'manage-content-page', 'uses' => 'ContentManagement@index' ) );
 	Route::get( '/admin/add-content', array( 'as' => 'add-content-page', 'uses' => 'ContentManagement@addContent' ) );
+	Route::get('admin/edit-content/{id}', array('as' => 'edit-content-page', 'uses' => 'ContentManagement@edit'));
     Route::get('/admin/change-settings', array('as' => 'change-settings-page', 'uses' => 'ContentManagement@settings'));
+
+    // Contact Info
+    //Route::get('admin/contact-info', array('as' => 'contact-info-page', 'uses' => 'ContactController@index'));
+    Route::controller('admin/contact-info', 'ContactController');
+
+    // Slider
     Route::get('/admin/slider', array('as' => 'slider-page', 'uses' => 'SliderController@index'));
     Route::get('/admin/add-slider', array('as' => 'add-slider-page', 'uses' => 'SliderController@addSliderPage'));
+	Route::get('/admin/edit-slider/{id}', array('as' => 'view-slider-page', 'uses' => 'SliderController@edit'));
     Route::get('/admin/getId', function()
     {
         if (Request::ajax())
@@ -243,6 +251,8 @@ Route::group(array('before' => 'auth'), function() {
             return $id + 1;
         }
     });
+    Route::post('/admin/contentImage', array('as'=>'content-image', 'uses'=>'ContentManagement@upload'));
+    Route::post('/admin/edit-content/updateContentImage', array('as'=>'update-content-image', 'uses'=>'ContentManagement@updateUpload'));
 	
 	Route::group(array('before' => 'csrf'), function() {
 		
@@ -271,9 +281,15 @@ Route::group(array('before' => 'auth'), function() {
 		));
 
         // Content Management
-        Route::post( '/admin/addContent', array('as' => 'add-content', 'uses' => 'ContentManagement@store') );
+        Route::post( '/admin/storeContent', array('as' => 'add-content', 'uses' => 'ContentManagement@store') );
         Route::post('/admin/changeSettings', array('as' => 'change-settings', 'uses' => 'ContentManagement@change'));
+        Route::post('admin/changeStatus', array('as' => 'change-status', 'uses' => 'ContentManagement@status'));
+		Route::post('admin/update-content', array('as' => 'update-content', 'uses' => 'ContentManagement@update'));
+		Route::post('admin/delete-content', array('as' => 'delete-content', 'uses' => 'ContentManagement@delete'));
         Route::post('/admin/add-slider-post', array('as' => 'add-slider', 'uses' => 'SliderController@addSlider'));
+        Route::post('/admin/slider-status', array('as' => 'slider-status', 'uses' => 'SliderController@changeStatus'));
+		Route::post('/admin/update/{id}', array('as' => 'update-slider', 'uses' => 'SliderController@update'));
+		Route::post('/admin/delete', array('as' => 'delete-slider', 'uses' => 'SliderController@delete'));
 		
 	});
 	

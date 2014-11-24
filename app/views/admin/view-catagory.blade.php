@@ -41,5 +41,19 @@
 			</div>
 		</div>
 	</section>
+
+	@section('script')
+		<script type="text/javascript">
+	        $(document).ready( function() {
+	        	$('.cart_quantity_delete').click( function(e) {
+	        		var con = confirm('Are you sure?');
+	        		
+	        		if (!con) {
+	        			e.preventDefault();
+	        		}
+	        	});
+	        });
+	    </script>
+    @stop
 	
 @stop

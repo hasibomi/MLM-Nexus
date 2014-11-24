@@ -5,15 +5,90 @@
     <div class="container">
         
         <div class="row">
-            @if(Session::has('event'))
-                {{ Session::get('event') }}
-            @endif
+            <a href="/admin/add-slider" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add slider</a>
         </div>
         
+        <br>
+        <br>
+
+
+        @if(Session::has('event'))
+            {{ Session::get('event') }}
+        @endif
+        
         <div class="row">
-            <a href="/admin/add-slider" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add slider</a>
-            <a class="btn btn-warning" href="/admin/change-settings"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Text</th>
+                            <th>Image</th>
+                            <th>Active</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        @if ($sliders->count() == 0)
+                            <tr>
+                                <td colspan="10">No sliders have been added yet</td>
+                            </tr>
+                        @else
+                            @foreach($sliders as $row)
+                                
+                                <tr>
+                                    <td>{{ $row->slider_id }}</td>
+                                    <td><a href="/admin/edit-slider/{{ $row->id }}">{{ $row->slider_text }}</a></td>
+                                    <td>
+                                       @if($row->slider != '')
+                                            <img src="{{ asset('images/slider/'.$row->slider) }}" alt="$row->slider1" width="70" height="70">
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($row->active == 1)
+                                            <div class="btn btn-success btn-xs">
+                                                <span class="glyphicon glyphicon-ok"></span>
+                                            </div>
+                                        @else
+                                            <div class="btn btn-danger btn-xs">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td width="5%">
+                                        @if($row->active == 1)
+                                           
+                                            {{ Form::open(array('url' => '/admin/slider-status')) }}
+                                                {{ Form::hidden('status', 0) }}
+                                                {{ Form::hidden('id', $row->id) }}
+                                                {{ Form::submit('Deactivate', ['class' => 'btn btn-danger btn-xs']) }}
+                                            {{ Form::close() }}
+                                        @else
+                                           {{ Form::open(array('url' => '/admin/slider-status')) }}
+                                                {{ Form::hidden('status', 1) }}
+                                                {{ Form::hidden('id', $row->id) }}
+                                                {{ Form::submit('Activate', ['class' => 'btn btn-success btn-xs']) }}
+                                            {{ Form::close() }}
+                                        @endif                                        
+                                    </td>
+                                    <td>
+                                        {{ Form::open(array('url' => '/admin/delete')) }}
+                                            {{ Form::hidden('id', $row->id)}}
+                                            {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
+                                        {{ Form::close() }}
+                                    </td>
+                                </tr>
+                                
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
         </div>
+        
+        <br><br>
         
     </div>
     {{-- /.container --}}

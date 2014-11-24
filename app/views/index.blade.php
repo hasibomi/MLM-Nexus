@@ -6,6 +6,14 @@
 	
 	<section>
 		<div class="container">
+
+			<div class="row">
+				@foreach (Content::where('call_name', '=', 'home')->where('active', '=', 1)->get() as $content)
+					{{ $content->title }}
+					{{ $content->description }}
+				@endforeach
+			</div>
+
 			<div class="row">
 				<div class="col-sm-3">
 					<div class="left-sidebar">

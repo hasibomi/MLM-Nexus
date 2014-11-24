@@ -39,7 +39,11 @@ class HomeController extends BaseController {
 	
 	public function contactUs()
 	{
-		return View::make('contact-us');
+		return View::make('contact-us')
+			->with('contact', ContactInfo::where('status', '=', 1)->get())
+			->with('facebooks', ContactInfo::select('facebook')->where('status', '=', 1)->get())
+			->with('twitters', ContactInfo::select('twitter')->where('status', '=', 1)->get())
+			->with('googles', ContactInfo::select('google')->where('status', '=', 1)->get());
 	}
 	
 	public function login()
