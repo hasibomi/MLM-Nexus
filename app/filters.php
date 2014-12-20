@@ -70,12 +70,21 @@ Route::filter('guest', function()
 	if (Auth::check()) return Redirect::to('/');
 });
 
+// Member
+Route::filter('member', function()
+{
+	if ( ! Auth::user() || Auth::user()->type != 'member' )
+	{
+		return Redirect::route('login')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
+	}
+});
+
 // Admin
 Route::filter('admin', function()
 {
 	if ( ! Auth::user() || Auth::user()->type != 'admin' )
 	{
-		return Redirect::to('admin/login')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
+		return Redirect::route('login')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 	}
 });
 

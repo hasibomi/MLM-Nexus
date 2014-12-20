@@ -1,11 +1,11 @@
 @extends('admin.layouts.main')
 
 @section('content')
-	
+
 	<section>
 		<div class="container">
 			<div class="row">
-				
+
 				<div class="col-sm-12 padding-right">
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
@@ -15,25 +15,28 @@
 								</div>
 								<br />
 								<div class="row">
-									{{ Form::open(array("url" => "/admin/edit-product-details/".$product->first()->id, "files" => true)) }}
+									{{ Form::open(array("url" => "admin/edit-product-details/".$product->first()->id, "files" => true)) }}
 										{{ Form::file("image") }}
+										@if($errors->first("image"))
+											{{ $errors->first("image") }}
+										@endif
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-7">
 							<div class="product-information"><!--/product-information-->
-								
+
 									<div class="form-group">
 										<div class="row">
 											<div class="col-md-2">
 												{{ Form::label("catagory", "Catagory") }}
 											</div>
 											<div class="col-md-10">
-												<?php $query = Catagory::select("catagory_name")->where("catagory_name", "!=", $product->first()->catagory)->get(); ?>
+												<?php $query = Catagory::select("id", "catagory_name")->where("id", "!=", $product->first()->catagory_id)->get(); $query2 = Catagory::where('id', $product->first()->catagory_id)->get(); ?>
 												<select name="catagory">
-													<option>{{ $product->first()->catagory }}</option>
+													<option value="{{ $product->first()->catagory_id }}">{{ $query2->first()->catagory_name }}</option>
 													@foreach ($query as $row)
-														<option>{{ $row->first()->catagory_name }}</option>
+														<option value="{{ $row->id }}">{{ $row->catagory_name }}</option>
 													@endforeach
 												</select>
 											</div>
@@ -86,7 +89,7 @@
 												{{ Form::label("condition", "Condition") }}
 											</div>
 											<div class="col-md-10 @if ( $errors->has('condition') ) has-error @endif">
-												{{ Form::text("condition", $value = $product->first()->condition, $attribute = [ "class" => "form-control", "Placeholder" => "Condition" ]) }}
+												{{ Form::text("condition", $value = $product->first()->product_condition, $attribute = [ "class" => "form-control", "Placeholder" => "Condition" ]) }}
 											</div>
 										</div>
 									</div>
@@ -159,6 +162,23 @@
 										</div>
 									</div>
 									<div class="form-group">
+                                        <div class="row">
+                                            @if ( $errors->has("product_code") )
+                                                {{ $errors->first( "product_code", '<p class="alert alert-danger">Please specify a product code</p>' ) }}
+                                            @endif
+                                        </div>
+                                    </div> <!-- Error message -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                {{ Form::label("product_code", "Product code") }}
+                                            </div>
+                                            <div class="col-md-10 @if ( $errors->has('product_code') ) has-error @endif">
+                                                {{ Form::text("product_code", $value = $product->first()->product_code, $attribute = [ "class" => "form-control", "Placeholder" => "Product code" ]) }}
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="form-group">
 										<div class="row">
 											<div class="col-md-12">
 												{{ Form::submit("Save", $attributes = [ "class" => "btn btn-success btn-block" ]) }}
@@ -173,5 +193,5 @@
 			</div>
 		</div>
 	</section>
-	
+
 @stop

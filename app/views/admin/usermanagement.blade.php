@@ -23,14 +23,14 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td><a href="/admin/user/{{ $user->id }}">{{ $user->name }}</a></td>
+                            <td><a href="/mlm/admin/user/{{ $user->id }}">{{ $user->name }}</a></td>
                             <td>{{ $user->designation }}</td>
                             <td>{{ $user->point }}</td>
                             <td>
                             	@if ($user->active == 1)
-                                	<a class="id btn btn-danger btn-xs" href="/admin/user/deactivate/{{ $user->id }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
+                                	<a class="id btn btn-danger btn-xs" href="/mlm/admin/user/deactivate/{{ $user->id }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
                                 @else
-                                	<a class="id btn btn-success btn-xs" href="/admin/user/activate/{{ $user->id }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
+                                	<a class="id btn btn-success btn-xs" href="/mlm/admin/user/activate/{{ $user->id }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
                                 @endif
                             </td>
                         </tr>

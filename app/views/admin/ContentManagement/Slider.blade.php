@@ -40,7 +40,7 @@
                                 
                                 <tr>
                                     <td>{{ $row->slider_id }}</td>
-                                    <td><a href="/admin/edit-slider/{{ $row->id }}">{{ $row->slider_text }}</a></td>
+                                    <td><a href="/mlm/admin/edit-slider/{{ $row->id }}">{{ $row->slider_text }}</a></td>
                                     <td>
                                        @if($row->slider != '')
                                             <img src="{{ asset('images/slider/'.$row->slider) }}" alt="$row->slider1" width="70" height="70">

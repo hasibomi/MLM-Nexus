@@ -14,14 +14,15 @@ class Products extends Migration {
 	{
 		Schema::create('products', function($theProduct) {
 			$theProduct->increments('id');
-			$theProduct->string('catagory');
+			$theProduct->integer('catagory_id');
 			$theProduct->string('name');
 			$theProduct->integer('price');
-            $theProduct->string('condition');
+            $theProduct->string('product_condition');
             $theProduct->string('brand');
 			$theProduct->text('description');
 			$theProduct->string('image');
 			$theProduct->integer('point');
+            $theProduct->text('product_code');
 			$theProduct->string('code');
 			$theProduct->timestamps();
 		});

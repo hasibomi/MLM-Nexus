@@ -169,10 +169,10 @@
 										<div class="single-products">
 											<div class="productinfo text-center">
 												<img src="{{ asset('images/shop/'.$row->image) }}" width="268" height="249" alt="" />
-												<a href="/admin/product-details/{{ $row->id }}"><h2>{{ $row->price }} TAKA</h2></a>
+												<a href="/mlm/admin/product-details/{{ $row->id }}"><h2>{{ $row->price }} TAKA</h2></a>
 												<p>{{ $row->name }}</p>
-												<a href="/admin/product-details/{{ $row->id }}" class="btn btn-default add-to-cart"><i class="glyphicon glyphicon-edit"></i>Edit</a>
-												<a href="/admin/product-details/{{ $row->id }}" class="btn btn-default add-to-cart"><i class="glyphicon glyphicon-trash"></i>Delete</a>
+												<a href="/mlm/admin/product-details/{{ $row->id }}" class="btn btn-default add-to-cart"><i class="glyphicon glyphicon-edit"></i>Edit</a>
+												<a href="/mlm/admin/product-details/{{ $row->id }}" class="btn btn-default add-to-cart"><i class="glyphicon glyphicon-trash"></i>Delete</a>
 											</div>
 										</div>
 									</div>

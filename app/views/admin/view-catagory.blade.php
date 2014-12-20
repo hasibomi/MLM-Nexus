@@ -29,10 +29,10 @@
 									<td class="cart_description"><h4><a href="javascript:;">{{ $catagory->catagory_type }}</a></h4></td>
 									<td class="cart_description">
 										<h4>
-											<a href="/admin/edit_catagory/{{ $catagory->id }}" >Edit</a>
+											<a href="/mlm/admin/edit_catagory/{{ $catagory->id }}" >Edit</a>
 										</h4>
 									</td>
-									<td class="cart_delete"><a class="cart_quantity_delete" href="/admin/delete_catagory/{{ $catagory->id }}"><i class="fa fa-times"></i></a></td>
+									<td class="cart_delete"><a class="cart_quantity_delete" href="/mlm/admin/delete_catagory/{{ $catagory->id }}"><i class="fa fa-times"></i></a></td>
 								</tr>
 							@endforeach
 						@endif

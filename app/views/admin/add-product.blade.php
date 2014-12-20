@@ -26,7 +26,7 @@
 							?>
 							<select name="catagory">
 								@foreach ($query as $row)
-									<option value="{{ $row->catagory_name }}">{{ $row->catagory_name }}</option>
+									<option value="{{ $row->id }}">{{ $row->catagory_name }}</option>
 								@endforeach
 							</select>
 						</div>
@@ -170,13 +170,31 @@
 				</div>
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-2"><label for="point">Point</label></div>
+						<div class="col-md-2"><label for="product_code">Product code</label></div>
 						<div class="col-md-6">
-							{{ Form::text('point', $value = e(Input::old('point')), $attributes = ['class' => 'form-control', 'placeholder' => 'Point']) }}
+						    {{ Form::text('point', $value = e(Input::old('point')), $attributes = ['class' => 'form-control', 'placeholder' => 'Point']) }}
 						</div>
 					</div>
 				</div>
 				<br />
+				<div class="row">
+                    <div class="col-md-offset-2">
+                        <div class="col-md-7">
+                            @if ($errors->has('product_code'))
+                                {{ $errors->first('product_code', '<p class="alert alert-danger">Please specify a product code</p>') }}
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <br />
+				<div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2"><label for="point">Point</label></div>
+                        <div class="col-md-6">
+                            {{ Form::text('product_code', $value = e(Input::old('product_code')), $attributes = ['class' => 'form-control', 'placeholder' => 'Product code']) }}
+                        </div>
+                    </div>
+                </div>
 				<div class="form-group">
 					<div class="row">
 						<div class="col-md-offset-3">

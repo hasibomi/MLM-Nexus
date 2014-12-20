@@ -38,8 +38,8 @@
                 
 			<div class="form-group">
                 <div class="row">
-                    {{ Form::label('slider1', 'Image 1') }}
-                    {{ Form::file('slider1') }}
+                    {{ Form::label('slider', 'Image') }}
+                    {{ Form::file('slider') }}
                 </div>
                 <div class="row">
                 	<img src="{{ asset('images/slider/'.$row->first()->slider) }}" alt="{{$row->first()->slider1}}" width="300" height="100" class="img-responsive" />

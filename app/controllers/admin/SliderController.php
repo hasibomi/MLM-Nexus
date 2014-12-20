@@ -62,7 +62,7 @@ class SliderController extends BaseController
 			{
 				$file = Input::file('slider');
                 $name = date('i-G-Y') . $file->getClientOriginalName();
-                $destination = base_path('/images/slider/');
+                $destination = 'images/slider/';
 				
 				$file->move($destination, $name);
 				
@@ -110,10 +110,8 @@ class SliderController extends BaseController
 	{
 		if ( Auth::check() )
 		{
-			$validator = Validator::make( Input::all(),
-				array(
-					'slider' => 'mimes: jpg, png, jpeg | size: 6000',
-				),
+			$validator = Validator::make(
+                array('slider' => Input::file('slider')),
 				array(
 					'mimes'				=> '<span class="glyphicon glyphicon-remove"></span> Unknown file inserted',
 					'size'				=> '<span class="glyphicon glyphicon-exclamation-sign"></span> Size must be less than 6 MB'
@@ -126,40 +124,43 @@ class SliderController extends BaseController
 			}
 			else
 			{
-				if (Input::file('slider') == "")
-				{
-					$query = Slider::find($id);
+				if (Input::file('slider') != '')
+                {
+                    $file = Input::file('slider');
+                    $name = date('i-G-Y') . $file->getClientOriginalName();
+                    $destination = 'images/slider/';
 
-					$query->slider_text = Input::get('text');
+                    $file->move($destination, $name);
 
-					if ($query->save())
-					{
-						return Redirect::route('slider-page')->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok> Slider updated successfully</p></span>');
-					}
-					else
-					{
-						return Redirect::back()->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove> Error occured. Please try after sometime</p></span>');
-					}
-				}
+                    $query = Slider::find($id);
 
-				$file = Input::file('slider');
-                $name = date('i-G-Y') . $file->getClientOriginalName();
-                $destination = base_path('/images/slider/');
-				
-				$file->move($destination, $name);
-				
-				$query = Slider::find($id);
-				
-				$query->slider = $name;
-				
-				if ($query->save())
-				{
-					return Redirect::route('slider-page')->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok> Slider updated successfully</p></span>');
-				}
-				else
-				{
-					return Redirect::back()->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove> Error occured. Please try after sometime</p></span>');
-				}
+                    $query->slider = $name;
+                    $query->slider_text = Input::get('text');
+
+                    if ($query->save())
+                    {
+                        return Redirect::route('slider-page')->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Slider updated successfully</p>');
+                    }
+                    else
+                    {
+                        return Redirect::back()->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>');
+                    }
+                }
+                else
+                {
+                    $query = Slider::find($id);
+                    
+                    $query->slider_text = Input::get('text');
+                    
+                    if ($query->save())
+                    {
+                        return Redirect::route('slider-page')->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Slider updated successfully</p>');
+                    }
+                    else
+                    {
+                        return Redirect::back()->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>');
+                    }
+                }
 			}
 		}
 		else

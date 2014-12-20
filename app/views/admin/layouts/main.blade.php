@@ -15,6 +15,7 @@ $edit_product = '';
 $user_management = '';
 $content_management = '';
 $slider = '';
+$order = '';
 
 if ($base == 'admin/account') {
 	$account = 'active';
@@ -58,6 +59,9 @@ if ($base == 'admin/account') {
     $slider = 'active';
     $content_management = 'active';
     $title = 'Slider';
+} else if ($base == 'admin/order') {
+	$order = 'active';
+	$title = 'Order Process';
 }
 ?>
 <!DOCTYPE html>
@@ -118,7 +122,7 @@ if ($base == 'admin/account') {
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/admin"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
+							<a href="/mlm/admin"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -138,7 +142,7 @@ if ($base == 'admin/account') {
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								<li>
-									<a href="/admin/account" class="{{ $account }}">
+									<a href="/mlm/admin/account" class="{{ $account }}">
 										<?php
 										$admin = User::select('profile_picture', 'name')->where('id', '=', Auth::id())->get();
 										?>
@@ -152,12 +156,12 @@ if ($base == 'admin/account') {
 									</a>
 								</li>
 								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-								<li><a href="/admin/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-								<li><a href="/admin/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+								<li><a href="/mlm/admin/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+								<li><a href="/mlm/admin/cart"><i class="fa fa-shopping-cart"></i> Cart</a></li>
 								@if (Auth::check())
-									<li><a href="/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="/mlm/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>
 								@else
-									<li><a href="/admin/login"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="/mlm/admin/login"><i class="fa fa-lock"></i> Login</a></li>
 								@endif
 							</ul>
 						</div>
@@ -180,22 +184,23 @@ if ($base == 'admin/account') {
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/admin" class="{{ $home }}">Home</a></li>
+								<li><a href="/mlm/admin" class="{{ $home }}">Home</a></li>
 								<li class="dropdown"><a href="javascript:;" class="{{ $productMenu }}">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                    	<li><a href="/admin/add-product" class="{{ $addProduct }}">Add Product</a></li>
-                                        <li><a href="/admin/shop" class="{{ $shop }}">Products</a></li>
+                                    	<li><a href="/mlm/admin/add-product" class="{{ $addProduct }}">Add Product</a></li>
+                                        <li><a href="/mlm/admin/shop" class="{{ $shop }}">Products</a></li>
                                     </ul>
                                 </li>
                                 <li class="dropdown"><a href="javascript:;" class="{{ $product_catagory }}">Product Catagory<i class="fa fa-angle-down"></i></a>
                                 	<ul class="sub-menu" role="menu">
-                                		<li><a href="/admin/catagory" class="{{ $catagory }}">Add Catagory</a></li>
-                                		<li><a href="/admin/view-catagory" class="{{ $view_catagory }}">View Catagory</a></li>
+                                		<li><a href="/mlm/admin/catagory" class="{{ $catagory }}">Add Catagory</a></li>
+                                		<li><a href="/mlm/admin/view-catagory" class="{{ $view_catagory }}">View Catagory</a></li>
                                 	</ul>
                                 </li>
-                                <li><a href="/admin/usermanagement" class="{{ $user_management }}">User Management</a>
+                                <li><a href="/mlm/admin/usermanagement" class="{{ $user_management }}">User Management</a>
                                 </li>
-								<li><a href="/admin/manage-content" class="{{ $content_management }}">Manage Content</a></li>
+								<li><a href="/mlm/admin/manage-content" class="{{ $content_management }}">Manage Content</a></li>
+								<li><a href="/mlm/admin/order" class="{{ $order }}">Order</a></li>
 							</ul>
 						</div>
 					</div>
@@ -212,72 +217,6 @@ if ($base == 'admin/account') {
 	@yield('content')
 	
 	<footer id="footer"><!--Footer-->
-		
-		<div class="footer-widget">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Service</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Online Help</a></li>
-								<li><a href="#">Contact Us</a></li>
-								<li><a href="#">Order Status</a></li>
-								<li><a href="#">Change Location</a></li>
-								<li><a href="#">FAQ’s</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Quock Shop</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">T-Shirt</a></li>
-								<li><a href="#">Mens</a></li>
-								<li><a href="#">Womens</a></li>
-								<li><a href="#">Gift Cards</a></li>
-								<li><a href="#">Shoes</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>Policies</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Terms of Use</a></li>
-								<li><a href="#">Privecy Policy</a></li>
-								<li><a href="#">Refund Policy</a></li>
-								<li><a href="#">Billing System</a></li>
-								<li><a href="#">Ticket System</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-2">
-						<div class="single-widget">
-							<h2>About Shopper</h2>
-							<ul class="nav nav-pills nav-stacked">
-								<li><a href="#">Company Information</a></li>
-								<li><a href="#">Careers</a></li>
-								<li><a href="#">Store Location</a></li>
-								<li><a href="#">Affillate Program</a></li>
-								<li><a href="#">Copyright</a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-sm-3 col-sm-offset-1">
-						<div class="single-widget">
-							<h2>About Nexus</h2>
-							<form action="#" class="searchform">
-								<input type="text" placeholder="Your email address" />
-								<button type="submit" class="btn btn-default"><i class="fa fa-arrow-circle-o-right"></i></button>
-								<p>Get the most recent updates from <br />our site and be updated your self...</p>
-							</form>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
 		
 		<div class="footer-bottom">
 			<div class="container">

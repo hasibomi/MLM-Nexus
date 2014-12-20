@@ -6,12 +6,9 @@ class AdminLogin extends BaseController {
 	 */
 	public function home()
 	{
-		if (Auth::check()) {
-			return View::make('admin.index');
-		} else {
-			return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">You are not loged in!</p>');
-		}
+		$query = Cart::where('status', '0')->take(10)->orderBy("created_at", "DESC");
+		
+		return View::make('Dashboard.Index', ['query' => $query]);
 	}
 	
 	/**

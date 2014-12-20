@@ -55,13 +55,13 @@ class Users extends BaseController {
 					'type'			 => 'member',
 					'token'			 => $code,
 					'designation'	 => 'Not an active member',
-					'active'		 => 0,
-					'group'			 => 'ungrouped'
+					'active'		 => 1,
+					'arrange_group'  => 'ungrouped'
 				));
 				
 				if ($create) {
 					return Redirect::route('login')
-								->with('signup_success', 'Your account has been created successfully! We have sent you an email to activate your account.');
+								->with('signup_success', 'Your account has been created successfully! We have sent you an email to activate your account. Please LOG IN');
 				} else {
 					return Redirect::route('login')
 									->with('singup_error', 'Error occured. Please try after sometimes');
@@ -93,12 +93,11 @@ class Users extends BaseController {
 			$auth = Auth::attempt(array(
 				'email'		=> Input::get('login_email'),
 				'password'	=> Input::get('login_password'),
-				'type'		=> 'member',
 				'active'	=> 1
 			));
 			
 			if ($auth) {
-				return Redirect::route('user-page');
+				return Redirect::intended();
 			} else {
 				return Redirect::route('login')
 								->with('login_failed', 'Email/Password wrong, or account not acctivated.');
@@ -115,7 +114,9 @@ class Users extends BaseController {
 	public function logout()
 	{
 		Auth::logout();
+		
 		return Redirect::route('login')
 						->with('logout', 'You are loged out!');
+		
 	}
 }

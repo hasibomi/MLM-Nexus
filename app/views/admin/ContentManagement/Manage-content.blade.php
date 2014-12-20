@@ -11,12 +11,12 @@
     	</div>
         
         <div class="row">
-            <a href="/admin/add-content" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add content</a>
-            <a href="/admin/slider" class="btn btn-success"><span class="glyphicon glyphicon-retweet"></span> Slider</a>
-            <a href="contact-info" class="btn btn-default">
+            <a href="/mlm/admin/add-content" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add content</a>
+            <a href="/mlm/admin/slider" class="btn btn-success"><span class="glyphicon glyphicon-retweet"></span> Slider</a>
+            <a href="/mlm/admin/contact-info" class="btn btn-default">
                 <span class="glyphicon glyphicon-envelope"></span> Contact Info
             </a>
-            <a class="btn btn-warning" href="/admin/change-settings"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
+            <a class="btn btn-warning" href="/mlm/admin/change-settings"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
         </div>
             
         <br>
