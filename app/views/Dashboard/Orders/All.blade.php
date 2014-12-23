@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('css')
     {{ HTML::style('redactor/redactor.css')}}
@@ -26,6 +26,7 @@
                             <th>Customer's name</th>
                             <th>Customer's email</th>
                             <th>Quantity</th>
+							<th>Order date</th>
                             <th>Amount</th>
                             <th></th>
                             <th></th>
@@ -43,9 +44,10 @@
                             <td>{{ $order->user->first()->email }}</td>
                             <td>{{ $order->quantity }}</td>
                             <td>{{ $order->quantity * $order->product->first()->price }}</td>
+							<td>{{ $order->created_at }}</td>
                             @if($order->status == 0)
                             <td width="5%">
-                                {{ Form::open(['url' => '/admin/order/accept/' . $order->id]) }}
+                                {{ Form::open(['url' => 'dashboard/order/accept/' . $order->id]) }}
                                     {{ Form::hidden('status', '1') }}
                                     <button type="submit" class="btn btn-success btn-xs">
                                         <span class="glyphicon glyphicon-ok"></span>
@@ -61,7 +63,7 @@
                             </td>
                             @else
                             <td colspan="2">
-                                {{ Form::open(['url' => '/admin/order/delete']) }}
+                                {{ Form::open(['url' => 'dashboard/order/delete']) }}
                                     {{ Form::hidden('id', $order->id) }}
                                     <button type="submit" class="btn btn-danger btn-xs">
                                         <span class="glyphicon glyphicon-remove"></span>
@@ -88,7 +90,7 @@
                     </div> <!-- end .modal-header -->
 
                     <div class="modal-body">
-                        {{ Form::open(['url' => '/admin/order/delete']) }}
+                        {{ Form::open(['url' => 'dashboard/order/delete']) }}
                             {{ Form::hidden('id', $cart->id) }}
                             {{ Form::hidden('user_id', $cart->user_id) }}
 

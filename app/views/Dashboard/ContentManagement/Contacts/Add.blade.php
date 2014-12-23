@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('css')
   {{ HTML::style('redactor/redactor.css')}}
@@ -24,33 +24,33 @@
 
             <legend>Add Contact Info</legend>
 
-            {{ Form::open(array('url'=>'admin/contact-info/update/'.$info->id)) }}
+            {{ Form::open(array('url'=>'dashboard/contact-info/create')) }}
                 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-2">{{ Form::label('description', 'Address') }}</div>
-                        <div class="col-md-10">{{ Form::textarea('description', (Input::old('description') ? Input::old('description') : $info->description), ['id'=>'description']) }}</div>
+                        <div class="col-md-10">{{ Form::textarea('description', Input::old('description'), ['id'=>'description']) }}</div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-2">{{ Form::label('facebook', 'Facebook Link') }}</div>
-                        <div class="col-md-10">{{ Form::text('facebook', (Input::old('facebook') ? Input::old('facebook') : $info->facebook), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'facebook']) }}</div>
+                        <div class="col-md-10">{{ Form::text('facebook', Input::old('facebook'), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'facebook']) }}</div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-2">{{ Form::label('twitter', 'Twitter Link') }}</div>
-                        <div class="col-md-10">{{ Form::text('twitter', (Input::old('twitter') ? Input::old('twitter') : $info->twitter), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'twitter']) }}</div>
+                        <div class="col-md-10">{{ Form::text('twitter', Input::old('twitter'), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'twitter']) }}</div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-2">{{ Form::label('google', 'Google + Link') }}</div>
-                        <div class="col-md-10">{{ Form::text('google', (Input::old('google') ? Input::old('google') : $info->google), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'google']) }}</div>
+                        <div class="col-md-10">{{ Form::text('google', Input::old('google'), ['class'=>'form-control', 'placeholder'=>'Please add http://','id'=>'google']) }}</div>
                     </div>
                 </div>
 

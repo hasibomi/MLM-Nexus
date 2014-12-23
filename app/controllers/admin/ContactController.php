@@ -12,7 +12,7 @@ class ContactController extends BaseController
 	// List page
 	public function getIndex()
 	{
-		return View::make('admin.ContactInfo.List')
+		return View::make('Dashboard.ContentManagement.Contacts.All')
 			->with('info', ContactInfo::all());
 		
 	}
@@ -20,7 +20,7 @@ class ContactController extends BaseController
 	// Add contact info
 	public function getAdd()
 	{
-		return View::make('admin.ContactInfo.Add');
+		return View::make('Dashboard.ContentManagement.Contacts.Add');
 	}
 
 	// Add info
@@ -48,7 +48,7 @@ class ContactController extends BaseController
 
 			if ($info->save())
 			{
-				return Redirect::to('admin/contact-info')
+				return Redirect::to('dashboard/contact-info')
 					->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Contact Info added successfully</p>');
 			}
 			else
@@ -68,7 +68,7 @@ class ContactController extends BaseController
 	{
 		if ( Input::get('status') == "" || Input::get('id') == "")
 		{
-			return Redirect::to('admin/contact-info')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> Do not remove entries</p>');
+			return Redirect::to('dashboard/contact-info')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> Do not remove entries</p>');
 		}
 
 		$info = ContactInfo::find(Input::get('id'));
@@ -93,7 +93,7 @@ class ContactController extends BaseController
 	// Edit info
 	public function getEdit($id)
 	{
-		return View::make('admin.ContactInfo.Edit')->with('info', ContactInfo::find($id));
+		return View::make('Dashboard.ContentManagement.Contacts.Edit')->with('info', ContactInfo::find($id));
 	}
 
 	// Update Info
@@ -112,7 +112,7 @@ class ContactController extends BaseController
 
 			if ( $info->save() )
 			{
-				return Redirect::to('admin/contact-info')
+				return Redirect::to('dashboard/contact-info')
 					->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Contact info updated successfully</p>');
 			}
 

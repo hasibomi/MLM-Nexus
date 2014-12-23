@@ -100,6 +100,7 @@ class CartController extends BaseController
     		if ($query->update(['checked_out' => '1']))
     		{
     			Mail::send('emails.auth.order', array('query' => $query), function ($message) {
+					$message->form("info@nexusitzone.com", "Nexus IT Zone");
     				$message->to(Auth::user()->email, Auth::user()->name)->subject('Nexus Order Process');
     			});
 

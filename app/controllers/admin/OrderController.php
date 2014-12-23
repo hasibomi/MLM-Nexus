@@ -9,7 +9,7 @@ class OrderController extends BaseController
 	public function getIndex()
 	{
         $query = Cart::where('status', '0')->paginate(10);
-		return View::make('admin.Order.Order', ['query' => $query]);
+		return View::make('Dashboard.Orders.All', ['query' => $query]);
 	}
     
     // Accept order
@@ -48,10 +48,14 @@ class OrderController extends BaseController
                             ->withErrors($validator)
                             ->withInput();
         }
+		
+		$email = $user->first()->email;
+		$name = $user->first()->name;
         
         // Send mail
-        Mail::send('emails.auth.denyOrder', ['name' => $user->first()->name, 'message' => Input::get('message')], function($message) {
-            $message->to($user->first()->email, $user->first()->name)->subject('Order denied');
+        Mail::send('emails.auth.denyOrder', ['name' => $name, 'message' => Input::get('message')], function($message) use($email, $name) {
+			$message->from("info@nexusitzone.com", "Nexus IT Zone");
+            $message->to($email, $name)->subject('Order denied');
         });
         
         // Delete the order

@@ -30,7 +30,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="/mlm/"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
+							<a href="{{ url("/") }}"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 							<div class="btn-group">
@@ -51,22 +51,30 @@
 							<ul class="nav navbar-nav">
 								@if (Auth::user() && Auth::user()->type == "member")
 									<li>
-										<a href="/mlm/account" class="{{ $account }}">
+										<a href="{{ url("account") }}" class="{{ $account }}">
 											<?php
-											$picture = User::select('profile_picture', 'name')->where('id', '=', Auth::id());
+											$picture = User::select('name')->where('id', '=', Auth::id());
 											?>
 											<i class="fa fa-user"></i> {{ $picture->first()->name }}
 										</a>
 									</li>
 									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
-									<li><a href="/mlm/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-									<li class="{{ $cart }}"><a href="/mlm/cart" class="{{ $cart }}"><i class="fa fa-shopping-cart"></i> Cart (<?php $cart = Cart::where('user_id', '=', Auth::user()->id)->where('checked_out', '0')->get(); echo count($cart); ?>)</a></li>
+									<li><a href="{{ url("checkout") }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+									<li class="{{ $cart }}"><a href="{{ url("cart") }}" class="{{ $cart }}"><i class="fa fa-shopping-cart"></i> Cart (<?php $cart = Cart::where('user_id', '=', Auth::user()->id)->where('checked_out', '0')->get(); echo count($cart); ?>)</a></li>
 								
-									<li><a href="/mlm/logout"><i class="fa fa-lock"></i> Logout</a></li>
+									<li><a href="{{ url("logout") }}"><i class="fa fa-lock"></i> Logout</a></li>
 								@elseif(Auth::user() && Auth::user()->type == "admin")
-									<li><a href="/mlm/logout"><i class="fa fa-lock"></i> Logout</a></li>
+									<li>
+										<a href="{{ url("account") }}" class="{{ $account }}">
+											<?php
+											$picture = User::select('name')->where('id', '=', Auth::id());
+											?>
+											<i class="fa fa-user"></i> {{ $picture->first()->name }}
+										</a>
+									</li>
+									<li><a href="{{ url("logout") }}"><i class="fa fa-lock"></i> Logout</a></li>
 								@else
-									<li><a href="/mlm/login"><i class="fa fa-lock"></i> Login</a></li>
+									<li><a href="{{ url("login") }}"><i class="fa fa-lock"></i> Login</a></li>
 								@endif
 							</ul>
 						</div>
@@ -78,7 +86,7 @@
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
-					<div class="col-sm-7">
+					<div @if(Admin::isAdmin()) class="col-sm-7" @else class="col-sm-8" @endif>
 						<div class="navbar-header">
 							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 								<span class="sr-only">Toggle navigation</span>
@@ -89,13 +97,13 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="/mlm/" class="<?= $home; ?>">Home</a></li>
+								<li><a href="{{ url("/") }}" class="<?= $home; ?>">Home</a></li>
 								<li class="dropdown"><a href="#" class="<?= $productMenu; ?>">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="/mlm/shop" class="<?= $shop; ?>">Products</a></li>
+                                        <li><a href="{{ url("shop") }}" class="<?= $shop; ?>">Products</a></li>
                                     </ul>
                                 </li>
-								<li><a href="/mlm/contact-us" class="<?= $contact; ?>">Contact</a></li>
+								<li><a href="{{ url("contact-us") }}" class="<?= $contact; ?>">Contact</a></li>
 								
 							</ul>
 						</div>

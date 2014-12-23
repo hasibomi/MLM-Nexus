@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('content')
 
@@ -12,7 +12,7 @@
 
             <div class="panel-body">
 
-                {{ Form::open(array('url' => 'admin/changeSettings')) }}
+                {{ Form::open(array('url' => 'dashboard/changeSettings')) }}
 
                     <fieldset>
                         <legend>Home Page</legend>

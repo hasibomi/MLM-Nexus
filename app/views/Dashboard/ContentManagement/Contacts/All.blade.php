@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('content')
 
@@ -9,7 +9,7 @@
 	@endif
 
 	<div class="row">
-		<a href="contact-info/add" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add</a>
+		<a href="{{ url('dashboard/contact-info/add') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add</a>
 	</div>
 
 	<br>
@@ -51,7 +51,7 @@
 
 	                            <td width="5%">
 	                                
-	                                {{ Form::open(array('url' => 'admin/contact-info/change')) }}
+	                                {{ Form::open(array('url' => 'dashboard/contact-info/change')) }}
 
 	                                    {{ Form::hidden('id', $row->id) }}
 
@@ -72,7 +72,7 @@
 	                            </td>
 
 	                            <td width="10%">
-	                                {{Form::open(array('url' => 'admin/contact-info/delete'))}}
+	                                {{Form::open(array('url' => 'dashboard/contact-info/delete'))}}
 	                                    {{Form::hidden('id', $row->id)}}
 	                                    <button type="submit" id="del" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> Delete</button>
 	                                {{Form::close()}}

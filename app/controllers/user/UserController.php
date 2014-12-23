@@ -52,6 +52,8 @@ class UserController extends BaseController {
 	
 	public function account()
 	{
+		if(Auth::check())
+		{
 		$query = User::select('referal_id', 'active')->where('referal_id', '=', Auth::id())->where('active', '=', '1');
 
 		if ($query->count() == 0) {
@@ -87,7 +89,38 @@ class UserController extends BaseController {
 							'right_member'		=> $right_count
 							)
 						);
+		}
+		else
+		{
+			return Redirect::route("login")->with("event", "<p class='alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign'></span> You are not logged in!</p>");
+		}
+	}
+	
+	// Refer a friend
+	public function refer()
+	{
+		$email = Input::get("email");
+		$text = Input::get("referMessage");
+		
+		$user = Auth::user()->email;
+		$name = Auth::user()->name;
+		
+		if($email == $user)
+		{
+			return Redirect::back()->with("event", "<p class='alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign'></span> You can't send invitation to yourself</p>");
+		}
+		else if(User::where("email", "=", $email)->count() == 1)
+		{
+			return Redirect::back()->with("event", "<p class='alert alert-danger'><span class='glyphicon glyphicon-exclamation-sign'></span> Your friend is already a member</p>");
+		}
+		else
+		{
+			Mail::send("emails.auth.Refer", ["query" => $text], function($message) use ($email, $text, $user, $name) {
+				$message->from($user, $name);
+				$message->to($email)->subject("Invitation from " . $user);
+			});
+
+			return Redirect::back()->with("event", "<p class='alert alert-success'><span class='glyphicon glyphicon-ok'></span> Thank you. Your invitation has been sent.</p>");
+		}
 	}
 }
-
-?>

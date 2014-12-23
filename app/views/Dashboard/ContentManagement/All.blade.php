@@ -1,4 +1,4 @@
-@extends ('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section ('content')
     
@@ -11,12 +11,12 @@
     	</div>
         
         <div class="row">
-            <a href="/mlm/admin/add-content" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add content</a>
-            <a href="/mlm/admin/slider" class="btn btn-success"><span class="glyphicon glyphicon-retweet"></span> Slider</a>
-            <a href="/mlm/admin/contact-info" class="btn btn-default">
+            <a href="{{ url('dashboard/add-content') }}" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add content</a>
+            <a href="{{ url('dashboard/slider') }}" class="btn btn-success"><span class="glyphicon glyphicon-retweet"></span> Slider</a>
+            <a href="{{ url('dashboard/contact-info') }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-envelope"></span> Contact Info
             </a>
-            <a class="btn btn-warning" href="/mlm/admin/change-settings"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
+            <a class="btn btn-warning" href="{{ url('dashboard/change-settings') }}"><i class="glyphicon glyphicon-wrench"></i> Change settings</a>
         </div>
             
         <br>
@@ -60,12 +60,12 @@
                                         </td>
                                     @endif
                                     <td width="5%">
-                                        <a class="btn btn-info btn-xs" href="edit-content/{{$row->id}}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                                        <a class="btn btn-info btn-xs" href="{{ url('dashboard/edit-content/' . $row->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                     </td>
 
                                     <td width="5%">
                                         
-                                        {{ Form::open(array('url' => 'admin/changeStatus')) }}
+                                        {{ Form::open(array('url' => 'dashboard/changeStatus')) }}
                                             {{ Form::hidden('id', $row->id) }}
 
                                             @if ($row->active == 1)
@@ -84,7 +84,7 @@
                                     </td>
 
                                     <td width="10%">
-                                        {{Form::open(array('url' => 'admin/delete-content'))}}
+                                        {{Form::open(array('url' => 'dashboard/delete-content'))}}
                                             {{Form::hidden('id', $row->id)}}
                                             <button type="submit" id="btn" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-remove"></i> Delete</button>
                                         {{Form::close()}}

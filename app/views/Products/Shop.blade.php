@@ -47,7 +47,15 @@
                                                         {{ $catagory->catagory_name }}
                                                     </a>
                                                 @else
-                                                    {{ HTML::link('/products/all/'.$catagory->id, $catagory->catagory_name) }}
+													{{ HTML::link('products/all/'.$catagory->id, $catagory->catagory_name) }}
+
+													{{ Form::open(["url" => "catagory/delete_catagory/" . $catagory->id, "class" => "pull-right"]) }}
+														<button type="submit" class="btn btn-xs btn-danger">
+															<span class="glyphicon glyphicon-trash"></span> Delete
+														</button>
+													{{ Form::close() }}
+
+													<a href="{{ url("catagory/edit_catagory/" . $catagory->id) }}" class="btn btn-xs btn-info pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                 @endif
                                             </h4>
                                         </div>
@@ -57,6 +65,14 @@
                                                     @if($catagory->catagory_type == 'Main catagory')
                                                     @else
                                                         <li><a href="/products/all/{{ $catagory->id }}">{{ $catagory->catagory_type }} </a></li>
+														
+														{{ Form::open(["url" => "catagory/delete_catagory/" . $catagory->id, "class" => "pull-right"]) }}
+															<button type="submit" class="btn btn-xs btn-danger">
+																<span class="glyphicon glyphicon-trash"></span> Delete
+															</button>
+														{{ Form::close() }}
+
+														<a href="{{ url("catagory/edit_catagory/" . $catagory->id) }}" class="btn btn-xs btn-info pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
                                                     @endif
                                                 </ul>
                                             </div>

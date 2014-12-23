@@ -1,4 +1,4 @@
-@extends ('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('css')
   {{ HTML::style('redactor/redactor.css')}}
@@ -21,7 +21,7 @@
             </div>
         @endif
 
-        {{ Form::open(array('url' => '/admin/storeContent', 'files' => true)) }}
+        {{ Form::open(array('url' => 'dashboard/storeContent', 'files' => true)) }}
 
                 <div class="form-group">
                     <div class="row">{{ Form::label('title', 'Title') }}</div>

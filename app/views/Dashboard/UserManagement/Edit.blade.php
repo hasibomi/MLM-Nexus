@@ -1,10 +1,14 @@
-@extends ('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section ('content')
 	
     <section>
     	
         <div class="container">
+			
+			@if ( Session::has('event') )
+				{{ Session::get( 'event' ) }}
+			@endif
         	
             <div class="row">
             
@@ -54,9 +58,9 @@
                                 <div class="row">
                                    <div class="col-md-3">
                                         @if ($user->first()->active == 1)
-                                            <a class="id btn btn-danger" href="/admin/user/deactivate/{{ $user->first()->id }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
+                                            <a class="id btn btn-danger" href="{{ url("dashboard/user/deactivate/" . $user->first()->id) }}"><i class="glyphicon glyphicon-remove"></i> Deactivate</a>
                                         @else
-                                            <a class="id btn btn-success" href="/admin/user/activate/{{ $user->first()->id }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
+                                            <a class="id btn btn-success" href="{{ url("dashboard/user/activate/" . $user->first()->id) }}"><i class="glyphicon glyphicon-ok"></i> Activate</a>
                                         @endif
                                     </div>
                                 </div>

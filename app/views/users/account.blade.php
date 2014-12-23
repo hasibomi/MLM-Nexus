@@ -8,6 +8,17 @@
 			{{ Session::get('event') }}
 		@endif
 		
+		@if($errors->all())
+			<div class="alert alert-danger">
+				Error occured:
+				<ul>
+					@foreach($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		
 		<div class="panel panel-primary">
 			<div class="panel-heading"></div>
 			<div class="panel-body">
@@ -126,11 +137,6 @@
 							  	?>
 							  	@if ($select_profile->first()->profile_picture == "")
 							  		<p>No profile image</p>
-							  		{{ Form::open(array('url' => 'upload', 'files' => true)) }}
-							  			{{ Form::file('propic') }}
-							  			<br />
-							  			{{ Form::submit('Upload', $attributes = ['class' => 'btn btn-success btn-sm']) }}
-							  		{{ Form::close() }}
 							  	@else
 							  		<div class="col-md-3">
 							  			<div class="row">
@@ -174,6 +180,14 @@
 							  				: {{ $select_profile->first()->address }}
 							  			</div>
 							  		</div>
+									<div class="row">
+										<div class="col-md-3"><label>Referral ID</label></div>
+										<div class="col-md-9">
+											<a href="{{ url("#referalModal") }}" data-toggle="modal" data-target="#referalModal">
+												{{ $select_profile->first()->id }} - <u>Refer a friend</u>
+											</a>
+										</div>
+									</div>
 							  	</div>
 							  </div>
 							  <!-- /#profile -->
@@ -236,6 +250,8 @@
 			<!-- /.panel-body -->
 		</div>
 		<!-- /.panel.panel-primary -->
+		
+		@include("Users.Partials.ReferalModal")
 	
 	</div>
 	<!-- /.container -->

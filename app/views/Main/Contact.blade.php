@@ -8,12 +8,28 @@
 	    		<div class="col-sm-12">    			   			
 					<h2 class="title text-center">Get In Touch</strong></h2>
 				</div>			 		
-			</div>    	
+			</div>
+			@if($errors->all())
+				<div class="row">
+					<div class="alert alert-danger">
+						Error occured :
+						<ul>
+							@foreach($errors->all() as $error)
+								<li>{{ $error }}</li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
+			@endif
+			
+			@if(Session::has("event"))
+				{{ Session::get("event") }}
+			@endif
     		<div class="row">
 	    		<div class="col-sm-8">
 	    			<div class="contact-form">
 	    				<div class="status alert alert-success" style="display: none"></div>
-				    	<form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+						<form id="main-contact-form" class="contact-form row" name="contact-form" method="post" action="{{ url("submitContact") }}">
 				            <div class="form-group col-md-6">
 				                <input type="text" name="name" class="form-control" required="required" placeholder="Name">
 				            </div>

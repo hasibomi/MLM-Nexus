@@ -1,11 +1,11 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('content')
 
     <div class="container">
         
         <div class="row">
-            <a href="/admin/add-slider" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add slider</a>
+            <a href="{{ url('dashboard/add-slider') }}" class="btn btn-info"><span class='glyphicon glyphicon-plus'></span> Add slider</a>
         </div>
         
         <br>
@@ -40,7 +40,7 @@
                                 
                                 <tr>
                                     <td>{{ $row->slider_id }}</td>
-                                    <td><a href="/mlm/admin/edit-slider/{{ $row->id }}">{{ $row->slider_text }}</a></td>
+                                    <td><a href="{{ url('dashboard/edit-slider/' . $row->id) }}">{{ $row->slider_text }}</a></td>
                                     <td>
                                        @if($row->slider != '')
                                             <img src="{{ asset('images/slider/'.$row->slider) }}" alt="$row->slider1" width="70" height="70">
@@ -60,13 +60,13 @@
                                     <td width="5%">
                                         @if($row->active == 1)
                                            
-                                            {{ Form::open(array('url' => '/admin/slider-status')) }}
+                                            {{ Form::open(array('url' => 'dashboard/slider-status')) }}
                                                 {{ Form::hidden('status', 0) }}
                                                 {{ Form::hidden('id', $row->id) }}
                                                 {{ Form::submit('Deactivate', ['class' => 'btn btn-danger btn-xs']) }}
                                             {{ Form::close() }}
                                         @else
-                                           {{ Form::open(array('url' => '/admin/slider-status')) }}
+                                           {{ Form::open(array('url' => 'dashboard/slider-status')) }}
                                                 {{ Form::hidden('status', 1) }}
                                                 {{ Form::hidden('id', $row->id) }}
                                                 {{ Form::submit('Activate', ['class' => 'btn btn-success btn-xs']) }}
@@ -74,7 +74,7 @@
                                         @endif                                        
                                     </td>
                                     <td>
-                                        {{ Form::open(array('url' => '/admin/delete')) }}
+                                        {{ Form::open(array('url' => 'dashboard/delete')) }}
                                             {{ Form::hidden('id', $row->id)}}
                                             {{ Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) }}
                                         {{ Form::close() }}

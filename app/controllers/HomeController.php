@@ -61,5 +61,35 @@ class HomeController extends BaseController {
 	{
 		return View::make('Main.Login');
 	}
+	
+	// Submit contact form
+	public function submit()
+	{
+		$validator = Validator::make(Input::all(),
+			[
+				"name" => "required | min:3",
+				"email" => "required | email",
+				"subject" => "required | min:5",
+				"message" => "required | min:20"
+			]	
+		);
+		
+		if($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator)->withInput();
+		}
+		
+		$name = Input::get("name");
+		$email = Input::get("email");
+		$subject = Input::get("subject");
+		$text = Input::get("message");
+		
+		Mail::send("email.Contact", ["text" => $text], function($message) use($name, $email, $subject, $text) {
+			$message->from($email, $name);
+			$message->to("hasibomi@hasibomi.com", "Nexus IT Zone")->subject($subject);
+		});
+		
+		return Redirect::back()->with("event", '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Thank you. We got your message</p>');
+	}
 
 }

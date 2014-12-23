@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('css')
   {{ HTML::style('redactor/redactor.css')}}
@@ -21,7 +21,7 @@
         
         <div class="col-md-8">
             
-            {{ Form::open(array('url' => '/admin/add-slider-post', 'files' => true)) }}
+            {{ Form::open(array('url' => 'dashboard/add-slider-post', 'files' => true)) }}
                 
                 <div class="form-group">
                     <div class="row">

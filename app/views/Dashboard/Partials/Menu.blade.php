@@ -51,21 +51,6 @@
 										Back to <u>Main Site</u>
 									</a>
 								</li>
-								<li>
-									<a href="{{ url('dashboard/account') }}" class="{{ $account }}">
-										<?php
-										$admin = User::select('profile_picture', 'name')->where('id', '=', Auth::id())->get();
-										?>
-										@if ($admin->first()->proflie_picture == "")
-											<i class="fa fa-user"></i> {{ $admin->first()->name }}
-										@else
-											<div class="col-md-5">
-												<img src="{{ asset('images/propic/' . $picture->first()->profile_picture) }}" width="45" class="img-responsive" alt="" />
-											</div>
-										@endif
-									</a>
-								</li>
-								<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 								<li><a href="{{ url('logout') }}"><i class="fa fa-lock"></i> Logout</a></li>
 							</ul>
 						</div>
@@ -88,6 +73,7 @@
 						</div>
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
+								<li><a href="{{ url('dashboard/') }}">Dash - Home</a>
                                 <li><a href="{{ url('dashboard/usermanagement') }}" class="{{ $user_management }}">User Management</a>
                                 </li>
 								<li><a href="{{ url('dashboard/manage-content') }}" class="{{ $content_management }}">Manage Content</a></li>

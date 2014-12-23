@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends('Dashboard.Main.Boilerplate')
 
 @section('css')
   {{ HTML::style('redactor/redactor.css')}}
@@ -27,7 +27,7 @@
 
 	<div class="container">
 		
-		{{ Form::open(array('url' => 'admin/update/'.$row->first()->id, 'files' => true)) }}
+		{{ Form::open(array('url' => 'dashboard/update/'.$row->first()->id, 'files' => true)) }}
 		
 			<div class="form-group">
                 <div class="row">

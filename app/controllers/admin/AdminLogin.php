@@ -12,24 +12,6 @@ class AdminLogin extends BaseController {
 	}
 	
 	/**
-	 * Account page
-	 */
-	public function account()
-	{
-		if (Auth::check()) {
-			$admin = User::where('id', '=', Auth::id())->get();
-			
-			return View::make('admin.account', array(
-													'admin'	=> $admin
-											   )
-							 );
-		} else {
-			return Redirect::route('admin-login')
-					  ->with('event', '<p class="alert alert-danger">You are not loged in!</p>');
-		}
-	}
-	
-	/**
 	 * Change password page
 	 */
 	public function changePasswordPage()
@@ -67,14 +49,6 @@ class AdminLogin extends BaseController {
 			return Redirect::route('admin-login')
 					  ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 		}
-	}
-	
-	/**
-	 * Admin login page
-	 */
-	public function login_page()
-	{
-		return View::make('admin.login');
 	}
 	
 	/**

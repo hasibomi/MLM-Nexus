@@ -8,31 +8,41 @@ class ProfileController extends BaseController
 	 */
 	public function upload()
 	{
-		if (Input::file('propic') != "") {
-			$image 			= Input::file('propic');
-			$name 			= $image->getClientOriginalName();
-			$type 			= $image->getMimeType();
-			$size 			= $image->getSize()/1000;
-			$destination 	= public_path('images/propic/');
+		$validator = Validator::make(Input::all(), ["propic" => "required|image|mimes:jpg,jpeg,png|max:6000"]);
+		
+		if($validator->fails())
+		{
+			return Redirect::back()->withErrors($validator);
+		}
+		else
+		{
+			$user = User::find(Auth::id());
 			
-			if ($type == 'image/jpg' || $type == 'image/jpeg' || $type == 'image/png') {
-				if ($size <= 5000) {
-					$image->move($destination, $name);
-					
-					$user = User::find(Auth::id());
-					$user->profile_picture = $name;
-					
-					$user->save();
-					
-					return Redirect::route('user-account-page')->with('event', '<p class="alert alert-success">Picture uploaded</p>');
-				} else {
-					return Redirect::route('user-account-page')->with('event', '<p class="alert alert-danger">Image cannot be more than 5 MB</p>');
+			if($user)
+			{
+				if($user->profile_picture)
+				{
+					File::delete("images/propic/" . $user->profile_picture);
 				}
-			} else {
-				return Redirect::route('user-account-page')->with('event', '<p class="alert alert-danger">Invalid file</p>');
+				
+				$image 			= Input::file('propic');
+				$name 			= $image->getClientOriginalName();
+				/*$type 			= $image->getMimeType();
+				$size 			= $image->getSize()/1000;*/
+				$destination 	= 'images/propic/';
+
+				$image->move($destination, $name);
+
+
+				$user->profile_picture = $name;
+
+				if($user->save())
+				{
+					return Redirect::back()->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Picture uploaded</p>');
+				}
+
+				return Redirect::back()->with("event", '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>');
 			}
-		} else {
-			return Redirect::route('user-account-page')->with('event', '<p class="alert alert-danger">Please insert an image</p>');
 		}
 	}
 }
