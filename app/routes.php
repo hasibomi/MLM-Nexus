@@ -167,6 +167,10 @@ Route::group(array('before' => 'admin'), function() {
 	
 	// Post
 	Route::group(["before" => "csrf"], function() {
+        
+        // Products
+        Route::post('dashboard/addProduct', ['as' => 'product-store', 'uses' => 'ProductController@addProduct']);
+        Route::post('dashboard/editProduct/{id}', ['as' => 'update-product', 'uses' => 'ProductController@editProduct']);
 		
 		Route::post('dashboard/contentImage', array('as'=>'content-image', 'uses'=>'ContentManagement@upload'));
 		Route::post('dashboard/edit-content/updateContentImage', array('as'=>'update-content-image', 'uses'=>'ContentManagement@updateUpload'));

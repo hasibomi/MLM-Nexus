@@ -16,7 +16,7 @@
 									</div>
 									<br />
 									<div class="row">
-										{{ Form::open(array("url" => "admin/edit-product-details/".$product->first()->id, "files" => true)) }}
+										{{ Form::open(array("url" => "dashboard/editProduct/".$product->first()->id, "files" => true)) }}
 											{{ Form::file("image") }}
 											@if($errors->first("image"))
 												{{ $errors->first("image") }}

@@ -112,8 +112,8 @@
                                     <div class="choose">
                                         <ul class="nav nav-pills nav-justified">
 											@if(Admin::isAdmin())
-												<li><a class="btn btn-info" href="{{ url("admin/edit_catagory/" . $product->id) }}" style="color: #fff;"><span class="glyphicon glyphicon-edit"></span>Edit</a></li>
-												<li><a class="btn btn-danger" style="color: #fff;" href="{{ url("admin/delete_catagory/" . $product->id) }}"><i class="glyphicon glyphicon-trash"></i>Delete</a></li>
+												<li><a class="btn btn-info" href="{{ url("products/view/" . $product->id) }}" style="color: #fff;"><span class="glyphicon glyphicon-edit"></span>Edit</a></li>
+												<li><a class="btn btn-danger" style="color: #fff;" href="{{ url("products/delete/" . $product->id) }}"><i class="glyphicon glyphicon-trash"></i>Delete</a></li>
 											@endif
                                         </ul>
                                     </div>

@@ -14,7 +14,7 @@
 	
 	<section>
 		<div class="container">
-			{{ Form::open(array('url' => '/admin/addProduct', 'files' => true)) }}
+			{{ Form::open(array('url' => 'dashboard/addProduct', 'files' => true)) }}
 				<div class="form-group">
 					<div class="row">
 						<div class="col-md-2">

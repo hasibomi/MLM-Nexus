@@ -27,7 +27,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost', //mttp://hasibomi.com/mlm/
+	'url' => 'localhost', //mttp://hasibomi.com/mlm/
 
 	/*
 	|--------------------------------------------------------------------------

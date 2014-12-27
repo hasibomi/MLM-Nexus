@@ -48,14 +48,16 @@
                                                     </a>
                                                 @else
 													{{ HTML::link('products/all/'.$catagory->id, $catagory->catagory_name) }}
+                                                    @if(Admin::isAdmin())
 
-													{{ Form::open(["url" => "catagory/delete_catagory/" . $catagory->id, "class" => "pull-right"]) }}
-														<button type="submit" class="btn btn-xs btn-danger">
-															<span class="glyphicon glyphicon-trash"></span> Delete
-														</button>
-													{{ Form::close() }}
+                                                        {{ Form::open(["url" => "catagory/delete_catagory/" . $catagory->id, "class" => "pull-right"]) }}
+                                                            <button type="submit" class="btn btn-xs btn-danger">
+                                                                <span class="glyphicon glyphicon-trash"></span> Delete
+                                                            </button>
+                                                        {{ Form::close() }}
 
-													<a href="{{ url("catagory/edit_catagory/" . $catagory->id) }}" class="btn btn-xs btn-info pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                        <a href="{{ url("catagory/edit_catagory/" . $catagory->id) }}" class="btn btn-xs btn-info pull-right"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                                                    @endif
                                                 @endif
                                             </h4>
                                         </div>
