@@ -1,7 +1,9 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title") <title>Edit slider</title> @stop
+
 @section('css')
-  {{ HTML::style('redactor/redactor.css')}}
+  {{ HTML::style('assets/redactor/redactor.css')}}
 @stop
 
 @section('content')
@@ -42,7 +44,7 @@
                     {{ Form::file('slider') }}
                 </div>
                 <div class="row">
-                	<img src="{{ asset('images/slider/'.$row->first()->slider) }}" alt="{{$row->first()->slider1}}" width="300" height="100" class="img-responsive" />
+                	<img src="{{ asset($row->first()->slider) }}" alt="{{$row->first()->slider}}" width="300" height="100" class="img-responsive" />
                 </div>
             </div>
             
@@ -57,7 +59,7 @@
 	</div> <!-- /.container -->
 
 	@section ('script')
-        {{ HTML::script('redactor/redactor.js') }}
+        {{ HTML::script('assets/redactor/redactor.js') }}
         <script>
         $("#editor").redactor({
           minHeight: 200

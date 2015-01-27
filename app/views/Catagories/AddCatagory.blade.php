@@ -9,7 +9,7 @@
 			{{ Session::get('event') }}
 		@endif
 		<br />
-		{{ Form::open(array('url' => '/admin/addCatagory')) }}
+		{{ Form::open(array('url' => 'catagory/addCatagory')) }}
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-2">

@@ -1,7 +1,11 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title")
+<title>Add Contact Information</title>
+@stop
+
 @section('css')
-  {{ HTML::style('redactor/redactor.css')}}
+  {{ HTML::style('assets/redactor/redactor.css')}}
 @stop
 
 @section('content')
@@ -67,7 +71,7 @@
 </div>
 
 @section ('script')
-    {{ HTML::script('redactor/redactor.js') }}
+    {{ HTML::script('assets/redactor/redactor.js') }}
     <script>
         $("#description").redactor({
           minHeight: 200

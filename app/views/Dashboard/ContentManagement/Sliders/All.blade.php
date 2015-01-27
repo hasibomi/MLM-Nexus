@@ -1,5 +1,7 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title") <title>Sliders</title> @stop
+
 @section('content')
 
     <div class="container">
@@ -43,7 +45,7 @@
                                     <td><a href="{{ url('dashboard/edit-slider/' . $row->id) }}">{{ $row->slider_text }}</a></td>
                                     <td>
                                        @if($row->slider != '')
-                                            <img src="{{ asset('images/slider/'.$row->slider) }}" alt="$row->slider1" width="70" height="70">
+                                            <a href="{{ url('dashboard/edit-slider/' . $row->id) }}"><img src="{{ $row->slider }}" alt="{{$row->slider}}" width="70" height="70"></a>
                                         @endif
                                     </td>
                                     <td>

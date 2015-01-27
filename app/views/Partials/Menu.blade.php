@@ -10,6 +10,7 @@
 							</ul>
 						</div>
 					</div>
+
 					<div class="col-sm-6">
 						<div class="social-icons pull-right">
 							<ul class="nav navbar-nav">
@@ -24,14 +25,15 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
+
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="{{ url("/") }}"><img src="<?php echo asset('images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
+							<a href="{{ url("/") }}"><img src="<?php echo asset('assets/images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
+
 						<div class="btn-group pull-right">
 							<div class="btn-group">
 								<button type="button" class="btn btn-default dropdown-toggle usa">
@@ -46,12 +48,13 @@
 							</div>
 						</div>
 					</div>
+
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
 								@if (Auth::user() && Auth::user()->type == "member")
 									<li>
-										<a href="{{ url("account") }}" class="{{ $account }}">
+										<a href="{{ url("account") }}" class="{{ Request::path() == 'account' ? 'active' : '' }}">
 											<?php
 											$picture = User::select('name')->where('id', '=', Auth::id());
 											?>
@@ -60,12 +63,11 @@
 									</li>
 									<li><a href="#"><i class="fa fa-star"></i> Wishlist</a></li>
 									<li><a href="{{ url("checkout") }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-									<li class="{{ $cart }}"><a href="{{ url("cart") }}" class="{{ $cart }}"><i class="fa fa-shopping-cart"></i> Cart (<?php $cart = Cart::where('user_id', '=', Auth::user()->id)->where('checked_out', '0')->get(); echo count($cart); ?>)</a></li>
-								
+									<li class="{{ Request::path() == 'cart' ? 'active' : '' }}"><a href="{{ url("cart") }}" class="{{ Request::path() == 'cart' ? 'active' : '' }}"><i class="fa fa-shopping-cart"></i> Cart (<?php $cart = Cart::where('user_id', '=', Auth::user()->id)->where('checked_out', '0')->get(); echo count($cart); ?>)</a></li>
 									<li><a href="{{ url("logout") }}"><i class="fa fa-lock"></i> Logout</a></li>
 								@elseif(Auth::user() && Auth::user()->type == "admin")
 									<li>
-										<a href="{{ url("account") }}" class="{{ $account }}">
+										<a href="{{ url("account") }}" class="{{ Request::path() == 'account' ? 'active' : '' }}">
 											<?php
 											$picture = User::select('name')->where('id', '=', Auth::id());
 											?>
@@ -74,7 +76,7 @@
 									</li>
 									<li><a href="{{ url("logout") }}"><i class="fa fa-lock"></i> Logout</a></li>
 								@else
-									<li><a href="{{ url("login") }}"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="{{ url("login") }}" class="{{ Request::path() == 'login' ? 'active': '' }}"><i class="fa fa-lock"></i> Login <small>or </small>Signup</a></li>
 								@endif
 							</ul>
 						</div>
@@ -82,7 +84,7 @@
 				</div>
 			</div>
 		</div><!--/header-middle-->
-	
+
 		<div class="header-bottom"><!--header-bottom-->
 			<div class="container">
 				<div class="row">
@@ -95,19 +97,24 @@
 								<span class="icon-bar"></span>
 							</button>
 						</div>
+
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
-								<li><a href="{{ url("/") }}" class="<?= $home; ?>">Home</a></li>
-								<li class="dropdown"><a href="#" class="<?= $productMenu; ?>">Shop<i class="fa fa-angle-down"></i></a>
+								<li><a href="{{ url("/") }}" class="{{ Request::path() == '/' ? 'active' : '' }}">Home</a></li>
+								<li class="dropdown"><a href="#" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : '' }}">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="{{ url("shop") }}" class="<?= $shop; ?>">Products</a></li>
+                                        <li><a href="{{ url("shop") }}" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : '' }}">Products</a></li>
                                     </ul>
                                 </li>
-								<li><a href="{{ url("contact-us") }}" class="<?= $contact; ?>">Contact</a></li>
-								
+								<li><a href="{{ url("contact-us") }}" class="{{ Request::path() == 'contact-us' ? 'active' : '' }}">Contact</a></li>
+								<li><a href="{{ url("notice") }}" class="{{ Request::path() == "notice" ? "active" : Request::is("notice/*") ? "active" : "" }}">Notice</a></li>
+								@if(Auth::user())
+									<li><a href="{{ url('personal-notice') }}" class="{{ Request::path() == "personal-notice" ? "active" : Request::is("personal-notice/*") ? "active" : "" }}">Personal Notice</a></li>
+								@endif
 							</ul>
 						</div>
 					</div>
+
 					@if(Admin::isAdmin())
 						<div class="col-md-2 pull-right">
 							<a href="{{ url("dashboard") }}" class="btn btn-success">
@@ -115,6 +122,7 @@
 							</a>
 						</div>
 					@endif
+
 					<div class="col-sm-3">
 						<div class="search_box pull-right">
 							<input type="text" placeholder="Search"/>

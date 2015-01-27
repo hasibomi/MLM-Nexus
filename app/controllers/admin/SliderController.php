@@ -25,14 +25,15 @@ class SliderController extends BaseController
     // Add slider
     public function addSLider()
     {
-		$validator = Validator::make( Input::all(),
+		$validator = Validator::make(
+			array('slider' => Input::file("slider")),
 			array(
-				'slider' => 'required | image | mimes:jpg, jpeg, png, gif | max:6000',
+				'slider' => 'required|image|mimes:jpg,jpeg,png,gif|max:6000',
 			),
 			array(
 				'required'			=> '<span class="glyphicon glyphicon-exclamation-sign"></span> Please insert at least 1 image',
 				'mimes'				=> '<span class="glyphicon glyphicon-remove"></span> Unknown file inserted',
-				'size'				=> '<span class="glyphicon glyphicon-exclamation-sign"></span> Size must be less than 6 MB'
+				'max'				=> '<span class="glyphicon glyphicon-exclamation-sign"></span> Size must be less than 6 MB'
 			)
 		);
 
@@ -44,7 +45,7 @@ class SliderController extends BaseController
 		{
 			$file = Input::file('slider');
 			$name = date('i-G-Y') . $file->getClientOriginalName();
-			$destination = 'images/slider/';
+			$destination = 'assets/images/slider/';
 
 			$file->move($destination, $name);
 
@@ -52,7 +53,7 @@ class SliderController extends BaseController
 
 			$query->slider_id 		= Input::get('getId');
 			$query->slider_text 	= Input::get('text');
-			$query->slider 			= $name;
+			$query->slider 			= 'assets/images/slider/' . $name;
 
 			if ($query->save())
 			{
@@ -95,13 +96,13 @@ class SliderController extends BaseController
 			{
 				$file = Input::file('slider');
 				$name = date('i-G-Y') . $file->getClientOriginalName();
-				$destination = 'images/slider/';
+				$destination = 'assets/images/slider/';
 
 				$file->move($destination, $name);
 
 				$query = Slider::find($id);
 
-				$query->slider = $name;
+				$query->slider = 'assets/images/slider/' . $name;
 				$query->slider_text = Input::get('text');
 
 				if ($query->save())
@@ -171,6 +172,8 @@ class SliderController extends BaseController
 
 		if ($slider->delete())
 		{
+			File::delete("assets/images/slider/" . $slider->slider);
+
 			return Redirect::back()->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Successfully deleted</p>');
 		}
 		else

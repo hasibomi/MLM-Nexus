@@ -1,5 +1,7 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title") <title>Edit Contact Information</title> @stop
+
 @section('css')
   {{ HTML::style('redactor/redactor.css')}}
 @stop

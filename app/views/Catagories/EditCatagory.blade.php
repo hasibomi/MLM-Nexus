@@ -7,7 +7,7 @@
 	<br />
 
 	<div class="container">
-		{{ Form::open( array("url" => "/admin/edit-catagory/".$row->first()->id) ) }}
+		{{ Form::open( array("url" => "catagory/edit-catagory/".$row->first()->id) ) }}
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-2">

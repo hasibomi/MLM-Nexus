@@ -66,7 +66,7 @@
                                                 <ul>
                                                     @if($catagory->catagory_type == 'Main catagory')
                                                     @else
-                                                        <li><a href="/products/all/{{ $catagory->id }}">{{ $catagory->catagory_type }} </a></li>
+                                                        <li><a href="products/all/{{ $catagory->id }}">{{ $catagory->catagory_type }} </a></li>
 														
 														{{ Form::open(["url" => "catagory/delete_catagory/" . $catagory->id, "class" => "pull-right"]) }}
 															<button type="submit" class="btn btn-xs btn-danger">
@@ -95,7 +95,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            {{ HTML::image('images/shop/'.$product->image, $product->name, ['width'=>'200', 'height'=>'200']) }}
+                                            {{ HTML::image('assets/images/shop/'.$product->image, $product->name, ['width'=>'200', 'height'=>'200']) }}
                                             <h2>{{ $product->name }}</h2>
                                             <p>{{ $product->price }} ৳</p>
                                         </div>
@@ -103,18 +103,18 @@
                                             <div class="overlay-content">
                                                 @if (! Auth::user())
                                                     <h2>
-                                                        {{ HTML::link('/products/view/'.$product->id, $product->name) }}
+                                                        {{ HTML::link('products/view/'.$product->id, $product->name) }}
                                                     </h2>
                                                     <p>
-                                                        {{ HTML::link('/products/view/'.$product->id, $product->price) }} ৳
+                                                        {{ HTML::link('products/view/'.$product->id, $product->price) }} ৳
                                                     </p>
                                                 @elseif (Auth::user() && Auth::user()->type != 'admin')
                                                     <h2>
-														{{ HTML::link('/products/view/'.$product->id, $product->name) }}
+														{{ HTML::link('products/view/'.$product->id, $product->name) }}
                                                         
                                                     </h2>
                                                     <p>
-                                                        {{ HTML::link('/products/view/'.$product->id, $product->price) }} ৳
+                                                        {{ HTML::link('products/view/'.$product->id, $product->price) }} ৳
                                                     </p>
                                                 @endif
                                                 @if (! Auth::user())

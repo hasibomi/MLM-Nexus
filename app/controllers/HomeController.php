@@ -92,4 +92,37 @@ class HomeController extends BaseController {
 		return Redirect::back()->with("event", '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Thank you. We got your message</p>');
 	}
 
+	// Notice
+	public function notice()
+	{
+		/*return View::make("Main.Notice")
+			->with("notices", Notice::where("notice_id", "=",);*/
+	}
+
+	// Notice view
+	public function noticeView($id)
+	{
+		$query = Notice::find($id);
+
+		if($query)
+		{
+			return View::make("Main.NoticeView")
+				->with("notice", $query);
+		}
+
+		return App::abort(404);
+	}
+
+	// Personal Notice
+	public function personalNotice()
+	{
+		if(Auth::check())
+		{
+			$id = json_encode(Auth::id());
+			$notices = Notice::where("associated_users", $id)->get();
+			return View::make("Main.Notices.Personal.All")
+				->with("notices", $notices);
+		}
+	}
+
 }

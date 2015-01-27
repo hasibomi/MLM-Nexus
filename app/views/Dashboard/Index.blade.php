@@ -1,5 +1,9 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title")
+<title>Dashboard</title>
+@stop
+
 @section('content')
 	
 <div class="container">
@@ -67,7 +71,7 @@
 										<td>{{ $order->quantity * $order->product->first()->price }}</td>
 										@if($order->status == 0)
 										<td width="5%">
-											{{ Form::open(['url' => '/admin/order/accept/' . $order->id]) }}
+											{{ Form::open(['url' => 'admin/order/accept/' . $order->id]) }}
 												{{ Form::hidden('status', '1') }}
 												<button type="submit" class="btn btn-success btn-xs">
 													<span class="glyphicon glyphicon-ok"></span>

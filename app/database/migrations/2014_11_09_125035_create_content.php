@@ -18,6 +18,7 @@ class CreateContent extends Migration {
             $row->string('title');
             $row->text('description');
             $row->string('call_name');
+            $row->boolean("active")->default(1);
             $row->timestamps();
         } );
 	}

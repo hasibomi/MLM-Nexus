@@ -22,19 +22,19 @@ class ProfileController extends BaseController
 			{
 				if($user->profile_picture)
 				{
-					File::delete("images/propic/" . $user->profile_picture);
+					File::delete("assets/images/propic/" . $user->profile_picture);
 				}
 				
 				$image 			= Input::file('propic');
 				$name 			= $image->getClientOriginalName();
 				/*$type 			= $image->getMimeType();
 				$size 			= $image->getSize()/1000;*/
-				$destination 	= 'images/propic/';
+				$destination 	= 'assets/images/propic/';
 
 				$image->move($destination, $name);
 
 
-				$user->profile_picture = $name;
+				$user->profile_picture = 'assets/images/propic/' . $name;
 
 				if($user->save())
 				{

@@ -1,5 +1,7 @@
 @extends("Main.Boilerplate")
 
+@section("title") <title>{{ $product->first()->name }}</title>
+
 @section("content")
 
 	@if(Admin::isAdmin())
@@ -12,7 +14,7 @@
 							<div class="col-sm-5">
 								<div class="view-product">
 									<div class="row">
-										<img src="{{ asset('images/shop/'.$product->first()->image) }}" alt="" />
+										<img src="{{ asset('assets/images/shop/'.$product->first()->image) }}" alt="" />
 									</div>
 									<br />
 									<div class="row">
@@ -209,7 +211,7 @@
 							<div class="col-sm-5">
 								<div class="view-product">
 									<div class="row">
-										<img src="{{ asset('images/shop/'.$product->first()->image) }}" alt="" />
+										<img src="{{ asset('assets/images/shop/'.$product->first()->image) }}" alt="" />
 									</div>
 								</div>
 							</div>
@@ -241,7 +243,7 @@
 											{{ Form::label("price", "Price") }}
 										</div>
 										<div class="col-md-10">
-											{{ $product->first()->price }}
+											৳ {{ $product->first()->price }}
 										</div>
 									</div>
 									<div class="row">

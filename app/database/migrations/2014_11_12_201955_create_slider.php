@@ -18,12 +18,7 @@ class CreateSlider extends Migration {
            $slider->increments('id');
            $slider->integer('slider_id');
            $slider->string('slider_text');
-           $slider->string('slider1');
-           $slider->string('slider2');
-           $slider->string('slider3');
-           $slider->string('slider4');
-           $slider->string('slider5');
-           $slider->string('slider6');
+           $slider->string('slider');
            $slider->integer('active');
            $slider->timestamps();
        });

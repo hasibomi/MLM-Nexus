@@ -70,23 +70,31 @@
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 						{{Form::open(array('url' => 'signup'))}}
+                            {{ Form::label("name", "Name") }}
 							{{ Form::text('name', $value=Input::old('name'), $attributes = ['placeholder' => 'Name', 'required' => 'required']) }}
 							@if($errors->has('name'))
 								{{ $errors->first('name') }}
 							@endif
+                            
+                            {{ Form::label("email", "Email") }}
 							{{ Form::email('email', $value=Input::old('email'), $attributes = ['placeholder' => 'Email Address', 'required' => 'required']) }}
 							@if ($errors->has('email'))
 								{{ $errors->first('email') }}
 							@endif
+                            
+                            {{ Form::label("password", "Password") }}
 							{{ Form::password('password', $attributes = ['placeholder' => 'Password', 'required' => 'required']) }}
 							@if ($errors->has('password'))
 								{{ $errors->first('password') }}
 							@endif
+                            
+                            {{ Form::label("confirm_password", "Confirm Password") }}
 							{{ Form::password('confirm_password', $attributes = ['placeholder' => 'Confirm Password', 'required' => 'required']) }}
 							@if ($errors->has('confirm_password'))
 								{{ $errors->first('confirm_password') }}
 							@endif
-							<p>Gender</p>
+							
+                            {{ Form::label("gender", "Gender") }}
 							<select name="gender">
 								<option>Male</option>
 								<option>Female</option>
@@ -120,9 +128,27 @@
 							</div>
 							<br />
 							<br />
-							{{ Form::textarea('address', $value = null, $attributes = ['placeholder' => 'Address']) }}
+                            
+                            {{ Form::label("present_address", "Present Address") }}
+							{{ Form::textarea('present_address', $value = Input::old("present_address"), $attributes = ['placeholder' => 'Present Address']) }}
+                            @if($errors->has("present_address"))
+                                {{ $errors->first("present_address") }}
+                            @endif
 							<br /><br />
-							{{ Form::text('referal_id', $value = null, $attributes = ['placeholder' => 'Referal ID']) }}							
+                            
+                            {{ Form::label("permanent_address", "Permanent Address") }}
+                            {{ Form::textarea('permanent_address', $value = Input::old("permanent_address"), $attributes = ['placeholder' => 'Permanent Address']) }}
+                            @if($errors->has("permanent_address"))
+                                {{ $errors->first("permanent_address") }}
+                            @endif
+							<br /><br />
+                            
+                            {{ Form::label("referal_id", "Referal ID") }}
+							{{ Form::text('referal_id', $value = null, $attributes = ['placeholder' => 'Referal ID', 'id' => 'referal_id']) }}
+                            <br />
+                            
+                            <div id="hand"></div>
+                            
 							<button type="submit" class="btn btn-default">Signup</button>
 						{{ Form::close() }}
 					</div><!--/sign up form-->
@@ -130,5 +156,28 @@
 			</div>
 		</div>
 	</section><!--/form-->
+
+@section("script") 
+<script>
+    $("#referal_id").keyup(function() {
+        var referal_id = $(this).val(),
+            $hand = $("#hand");
+            
+        if(referal_id != "") {
+        
+            $.ajax({
+                url: "{{url('findRefer')}}",
+                type: "POST",
+                data: "referal_id=" + referal_id,
+                success: function(data) {
+                    $hand.html(data);
+                }
+            });
+        } else {
+            $hand.html("<div class='alert alert-danger'>Referal ID is required</div>");
+        }
+    });
+</script>
+@stop
 
 @stop

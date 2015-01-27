@@ -1,7 +1,9 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title") <title>Add Slider</title> @stop
+
 @section('css')
-  {{ HTML::style('redactor/redactor.css')}}
+  {{ HTML::style('assets/redactor/redactor.css')}}
 @stop
 
 @section('content')
@@ -52,7 +54,7 @@
     {{-- /.container --}}
     
     @section ('script')
-        {{ HTML::script('redactor/redactor.js') }}
+        {{ HTML::script('assets/redactor/redactor.js') }}
         <script>
         $("#editor").redactor({
           minHeight: 200

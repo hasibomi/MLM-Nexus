@@ -1,5 +1,9 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section("title")
+<title>Content Management</title>
+@stop
+
 @section ('content')
     
     <div class="container">

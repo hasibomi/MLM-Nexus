@@ -72,7 +72,7 @@
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            {{ HTML::image('images/shop/'.$product->image, $product->name, ['width'=>'200', 'height'=>'200']) }}
+                                            {{ HTML::image('assets/images/shop/'.$product->image, $product->name, ['width'=>'200', 'height'=>'200']) }}
                                             <h2>{{ $product->name }}</h2>
                                             <p>{{ $product->price }} ৳</p>
                                         </div>

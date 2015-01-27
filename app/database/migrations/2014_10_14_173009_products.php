@@ -16,6 +16,7 @@ class Products extends Migration {
 			$theProduct->increments('id');
 			$theProduct->integer('catagory_id');
 			$theProduct->string('name');
+			$theProduct->integer("quantity");
 			$theProduct->integer('price');
             $theProduct->string('product_condition');
             $theProduct->string('brand');

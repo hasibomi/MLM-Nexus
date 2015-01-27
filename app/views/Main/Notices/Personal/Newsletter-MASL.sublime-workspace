@@ -1,0 +1,267 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"notice_",
+				"notice_user_associates"
+			],
+			[
+				"Sch",
+				"Schema-drop	Schema-drop"
+			],
+			[
+				"Sc",
+				"Schema-create	Schema-create"
+			],
+			[
+				"style",
+				"style	Attr"
+			],
+			[
+				"inser",
+				"inserts"
+			],
+			[
+				"Red",
+				"Redirect-to	Redirect-to"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"View",
+				"View-make	View-make"
+			],
+			[
+				"jsn",
+				"json_encode"
+			],
+			[
+				"a",
+				"a	HTML - Anchor"
+			],
+			[
+				"App-a",
+				"App-abort	App-abort"
+			],
+			[
+				"Home",
+				"HomeController"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"ke",
+				"key"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 512.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/NewsletterMasl"
+	],
+	"file_history":
+	[
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/Notices/Personal/All.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/controllers/HomeController.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/routes.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Partials/Menu.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Notices/BrowseUser.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/controllers/NoticeController.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/database/migrations/2015_01_07_191523_create_notice_user_associates.php",
+		"/M/New/index.html",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/database/migrations/2014_12_29_220757_create_commision.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/database/migrations/2015_01_06_233334_create_notices.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/models/NoticeUserAssociate.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/Contact.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/Notices/Personal",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Partials/Menu.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Notices/EditBrowseUser.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Notices/All.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/Notice.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/NoticeView.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Notices/Edit.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/Boilerplate.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/models/Notice.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Dashboard/Notices/Add.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/app/views/Main/404.blade.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/sftp-config.json",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/MLM.sublime-project",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/routes.php",
+		"/C/Users/Omi/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/server.php",
+		"/D/Apps/Dropbox/Development/Apps/NexusProjects/mlm/views/Dashboard/ContentManagement/Contacts/All.blade.php"
+	],
+	"find":
+	{
+		"height": 26.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"br",
+			"notice"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 34.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.sftp":
+	{
+		"height": 148.0
+	},
+	"project": "Newsletter-MASL.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 206.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
