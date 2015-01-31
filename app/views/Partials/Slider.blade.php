@@ -14,7 +14,7 @@
                                                 {{ $row->slider_text }}
                                             </div>
                                             <div class="col-sm-6">
-                                                <img src="{{ asset($row->slider) }}" class="girl img-responsive" alt="Slider" />
+                                                <img src="{{ asset($row->slider) }}" class="girl img-responsive" alt="Slider" width="300" height="500" />
                                             </div>
                                         @endforeach
                                     </div>
@@ -24,7 +24,7 @@
                                                 {{ $row->slider_text }}
                                             </div>
                                             <div class="col-sm-6">
-                                                <img src="{{ asset($row->slider) }}" class="girl img-responsive" alt="Slider" />
+                                                <img src="{{ asset($row->slider) }}" class="girl img-responsive" alt="Slider" width="300" height="500" />
                                             </div>
                                         </div>
                                     @endforeach

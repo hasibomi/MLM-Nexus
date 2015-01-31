@@ -7,14 +7,9 @@ class Product extends Eloquent
 	);
 	
 	protected $table = 'products';
-
-	public function cart()
-	{
-		return $this->belongsTo('Cart');
-	}
-
+	
 	public function catagory()
 	{
-		return $this->belongsTo('Catagory');
+		return $this->belongsTo('Catagory', 'catagory_id', 'id');
 	}
 }

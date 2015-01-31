@@ -10,13 +10,12 @@
       
     	<div class="row">
 			{{ Form::open(["url" => "dashboard/notice/updateassignuser/" . $notice]) }}
+                {{ Form::hidden('notice_id', $notice, ['class'=>'notice_id']) }}
         		<div class="row">                    
                     @foreach($users as $user)
-                        @foreach($notices as $notice)
-                        	<div class="col-md-3">
-                            	<input type="checkbox" name="users[]" value="{{ $user->id }}" {{ $user->id == $notice->user_id ? "checked" : "" }}> {{ $user->name }}
-                          	</div>
-                        @endforeach
+                    	<div class="col-md-3">
+                        	<input type="checkbox" name="users[]" value="{{ $user->id }}" @foreach($notices as $notice) {{ $user->id == $notice->user_id ? "checked" : "" }} @endforeach class="users"> {{ $user->name }}
+                      	</div>
                     @endforeach
                 </div>
 
@@ -26,4 +25,23 @@
             {{ Form::close() }}
         </div>
     </section>
+@stop
+
+@section("script")
+
+<script>
+    $(".users").click(function(e) {
+        //alert($(this).val());
+        $.ajax({
+            url: "/dashboard/finduser",
+            method: "post",
+            dataType: "html",
+            data: 'id=' + $(this).val() + '&notice_id=' + $(".notice_id").val(),
+            success: function (data) {
+                alert(data);
+            }
+        });
+    });
+</script>
+
 @stop

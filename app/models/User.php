@@ -27,12 +27,12 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     
     public function cart()
     {
-        $this->belongsTo('Cart');
+        return $this->hasMany('Cart');
     }
     
     public function point()
     {
-        $this->belongsTo("Point");
+        return $this->hasMany("Point");
     }
 
 }

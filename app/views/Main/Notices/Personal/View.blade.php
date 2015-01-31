@@ -1,6 +1,6 @@
 @extends("Main.Boilerplate")
 
-<?php $date = explode(" ", $notice->created_at); $corr_date = explode("-", $date[0]); ?>
+<?php foreach($notices as $notice) { $date = explode(" ", $notice->created_at); $corr_date = explode("-", $date[0]); } ?>
 
 @section('title')
 <title>Notice - {{ $corr_date[2] }}-{{ $corr_date[1] }}-{{ $corr_date[0] }}</title>

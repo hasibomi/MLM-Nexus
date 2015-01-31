@@ -3,7 +3,7 @@ class NoticeController extends BaseController
 {
 	public function __construct()
 	{
-		$this->beforeFilter("csrf", ["on" => "post", "except" => "postUpload"]);
+		$this->beforeFilter("csrf", ["on" => "post", ["except" => ["postUpload", "except"=>"postUser"]]]);
 	}
 	
 	// Get index page
@@ -21,7 +21,8 @@ class NoticeController extends BaseController
 		$query = Notice::where("id", "=", $id)->get();
 		
 		return View::make("Dashboard.Notices.Edit")
-			->with("notices", $query);
+			->with("notices", $query)
+			->with("users", User::all());
 	}
 	
 	// Update notice
@@ -38,7 +39,7 @@ class NoticeController extends BaseController
 				if($query)
 				{
 					$query->body = Input::get("body");
-					$query->associated_users = "";
+					$query->user_id = "";
 					
 					if($query->save())
 					{
@@ -97,14 +98,12 @@ class NoticeController extends BaseController
 
 			$users = rtrim($users, ", ");
 
-			DB::table("notices")->where("notice_id", $id)->update(["user_id" => $users]);
-
-			$create = DB::table("notice_user_associates")->where("notice_id", $id)->update($inserts);
+			$create = DB::table("notices")->where("notice_id", $id)->update(["user_id" => $users]);
 
 			if($create)
 			{
-				return Redirect::to("dashboard/notice/store")
-					->with("event", "<p class='alert alert-success'><span class='glyphicon glyphicon-ok'></span> Notice created. You can add another.</p>");
+				return Redirect::to("dashboard/notice")
+					->with("event", "<p class='alert alert-success'><span class='glyphicon glyphicon-ok'></span> Notice updated.</p>");
 			}
 
 			return Redirect::back()
@@ -118,6 +117,8 @@ class NoticeController extends BaseController
 	public function postDelete()
 	{
 		$query = Notice::find(Input::get("id"));
+
+		NoticeUserAssociate::where("notice_id", $query->notice_id)->delete();
 		
 		if($query->delete())
 		{
@@ -212,6 +213,11 @@ class NoticeController extends BaseController
 		}
 		
 		return Redirect::to("dashboard/notice");
+	}
+
+	public function postUpdateAssign()
+	{
+		echo "Here";
 	}
 	
 	// Upload image

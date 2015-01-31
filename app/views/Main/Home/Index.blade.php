@@ -1,5 +1,9 @@
 @extends("Main.Boilerplate")
 
+@section("title")
+<title>Home</title>
+@stop
+
 @section("content")
 	
 	<!-- Slider -->

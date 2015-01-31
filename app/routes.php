@@ -1,5 +1,5 @@
-
 <?php
+
 Route::get('/updateapp', function() { Artisan::call('dump-autoload'); echo 'dump-autoload complete'; });
 
 // Home
@@ -25,26 +25,22 @@ Route::get("logout", ["as" => "logout", "uses" => "users@logout"]);
 // Notice
 Route::get("notice", ["as" => "notice-page", "uses" => "HomeController@notice"]);
 Route::get("notice/view/{id}", ["as" => "notice-view-page", "uses" => "HomeController@noticeView"]);
-Route::get("personal-notice", ["as" => "personal-notice-page", "uses" => "HomeController@personalNotice"]);
-Route::get("personal-notice/view/{id}", ["as" => "personal-notice-page", "uses" => "HomeController@personalNoticeView"]);
 
 //Unauthenticated group
 
 // Login & Logout
-Route::group(array('before' => 'guest'), function() {
-    Route::post("findRefer", ["as" => "find-refer", "uses" => "users@findRefer"]);
+Route::post("findRefer", ["as" => "find-refer", "uses" => "users@findRefer"]);
 
-	// Login & Logout
-	Route::get('/login', array('as' => 'login', 'uses' => 'HomeController@login'));
+// Login & Logout
+Route::get('login', array('as' => 'login', 'uses' => 'HomeController@login'));
 
-	Route::group(array('before' => 'csrf'), function() {
-		// Login & Logout Post
-		Route::post('mlm/signup', array('as' => 'signup', 'uses' => 'users@signup'));
-		Route::post('login', array('as'	=> 'login-post', 'uses'	=> 'users@login'));
+// Login & Logout Post
+Route::post('signup', array('as' => 'signup', 'uses' => 'users@signup'));
+Route::post('login', array('as'	=> 'login-post', 'uses'	=> 'users@login'));
 
-		// Contact form submission
-		Route::post("submitContact", ["as" => "submit-contact", "uses" => "HomeController@submit"]);
-	});
+Route::group(array('before' => 'csrf'), function() {
+	// Contact form submission
+	Route::post("submitContact", ["as" => "submit-contact", "uses" => "HomeController@submit"]);
 });
 
 // Member group
@@ -56,30 +52,9 @@ Route::group(array('before' => 'member'), function() {
     Route::get('cart/cancel', ['as' => 'cart-cancel-page', 'uses' => 'CartController@cancel']);
     Route::get('cart/checkout', ['as' => 'checkout-page', 'uses' => 'CartController@checkout']);
 
-	//Ajax request to arrange member
-	Route::post('accountright', function() {
-		if (Request::ajax()) {
-			$id 	= Input::get('id');
-			$right 	= Input::get('right');
-			$group = User::find($id);
-			$group->arrange_group = 'right_side';
-			$group->save();
-
-			return "Success";
-		}
-	});
-
-	Route::post('accountleft', function() {
-		if (Request::ajax()) {
-			$id 	= Input::get('id');
-			$left 	= Input::get('left');
-
-			$group = User::find($id);
-			$group->arrange_group = 'left_side';
-			$group->save();
-			return "Success";
-		}
-	});
+	// Personal notice
+	Route::get("personal-notice", ["as" => "personal-notice-page", "uses" => "HomeController@personalNotice"]);
+	Route::get("personal-notice/view/{id}", ["as" => "personal-notice-page", "uses" => "HomeController@personalNoticeView"]);
 
 	//Upload image
 	Route::post('upload', array('as' => 'upload-pro-pic', 'uses'	=> 'ProfileController@upload'));
@@ -106,7 +81,6 @@ Route::group(array('before' => 'member'), function() {
 */
 
 // Authenticated group
-
 Route::group(array('before' => 'admin'), function() {
 	// Dashboard
 	Route::get('dashboard', array('as'	=> 'admin-home', 'uses'	=> 'AdminLogin@home'));
@@ -159,19 +133,6 @@ Route::group(array('before' => 'admin'), function() {
 
 	// Notice
 	Route::controller("dashboard/notice", "NoticeController");
-	/*Route::post("dashboard/notice/upload", function() {
-		$file = Input::file('file');
-		$destination = public_path().'images/notice/';
-
-		if($file->move($destination, $file->getClientOriginalName()))
-		{
-			return Response::json(['filelink' => asset('images/notice/'.$file->getClientOriginalName())]);
-		}
-		else
-		{
-			return Response::json(['error' => true]);
-		}
-	});*/
 
 	// Content Image
 	Route::post('dashboard/contentImage', array('as'=>'content-image', 'uses'=>'ContentManagement@upload'));
@@ -200,14 +161,31 @@ Route::group(array('before' => 'admin'), function() {
         Route::post('dashboard/slider-status', array('as' => 'slider-status', 'uses' => 'SliderController@changeStatus'));
 		Route::post('dashboard/update/{id}', array('as' => 'update-slider', 'uses' => 'SliderController@update'));
 		Route::post('dashboard/delete', array('as' => 'delete-slider', 'uses' => 'SliderController@delete'));
+	});
 
+	// Ajax
+	Route::post("dashboard/finduser", function()
+	{
+		$notice = Input::get('notice_id');
+		$user = Input::get("id");
+
+		$find = NoticeUserAssociate::where("notice_id", $notice)->where("user_id", $user);
+
+		if($find->count() > 0)
+		{
+			$find->delete();
+		}
+		else
+		{
+			$create = new NoticeUserAssociate;
+			$create->notice_id = $notice;
+			$create->user_id = $user;
+
+			$create->save();
+		}
 	});
 
 });
-
-Route::post('signup', 'users@signup');
-
-Route::post('login', 'users@login');
 
 App::missing(function($exception)
 {

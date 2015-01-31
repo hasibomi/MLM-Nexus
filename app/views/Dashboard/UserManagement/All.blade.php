@@ -1,9 +1,12 @@
 @extends('Dashboard.Main.Boilerplate')
 
+@section('title')
+    <title>User Management</title>
+@stop
+
 @section ('content')
 
 	<div class="container">
-    
     	@if ( Session::has('event') )
         	{{ Session::get( 'event' ) }}
         @endif

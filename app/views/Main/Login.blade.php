@@ -1,5 +1,9 @@
 @extends("Main.Boilerplate")
 
+@section("title")
+<title>Login</title>
+@stop
+
 @section("content")
 
 	<div class="container">

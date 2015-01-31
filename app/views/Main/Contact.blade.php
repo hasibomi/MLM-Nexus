@@ -1,5 +1,9 @@
 @extends("Main.Boilerplate")
 
+@section("title")
+<title>Contact Us</title>
+@stop
+
 @section("content")
 
 	 <div id="contact-page" class="container">

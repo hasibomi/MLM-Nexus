@@ -8,16 +8,16 @@ class Cart extends Eloquent
 
     public function product()
     {
-        return $this->hasMany('Product', 'id', 'product_id');
+        return $this->belongsTo('Product', 'product_id', 'id');
     }
 
     public function catagory()
     {
-    	return $this->hasMany('Catagory', 'id', 'catagory');
+    	return $this->belongsTo('Catagory', 'catagory', 'id');
     }
     
     public function user()
     {
-        return $this->hasMany('User', 'id', 'user_id');
+        return $this->belongsTo('User', 'user_id', 'id');
     }
 }

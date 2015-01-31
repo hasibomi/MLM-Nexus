@@ -8,6 +8,6 @@ class Point extends Eloquent
     
     public function user()
     {
-        $this->hasMany("User", "id", "user_id");
+        return $this->belongsTo("User", "user_id", "id");
     }
 }

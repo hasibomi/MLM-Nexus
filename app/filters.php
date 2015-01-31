@@ -73,7 +73,7 @@ Route::filter('guest', function()
 // Member
 Route::filter('member', function()
 {
-	if ( ! Auth::user() || Auth::user()->type != 'member' )
+	if ( ! Auth::user() )
 	{
 		return Redirect::route('login')->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> You are not loged in!</p>');
 	}

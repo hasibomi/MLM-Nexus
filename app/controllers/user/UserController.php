@@ -89,6 +89,17 @@ class UserController extends BaseController {
             	$point = 0 . " point";
             }
 
+            $amounts = Amount::where("user_id", Auth::user()->id);
+
+            if($amounts->count() > 0)
+            {
+            	$amount = "৳ " . $amounts->sum("amount");
+            }
+            else
+            {
+            	$amount = "৳ " . 0;
+            }
+
             return View::make('Users.Account', array(
                                 'total' 			=> $total,
                                 'left' 				=> $left,
@@ -96,7 +107,8 @@ class UserController extends BaseController {
                                 'ungrouped' 		=> $ungrouped_total,
                                 'left_member'		=> $left_count,
                                 'right_member'		=> $right_count,
-                                'point'				=> $point
+                                'point'				=> $point,
+                                'amount'			=> $amount
                                 )
                             );
 		}
@@ -156,9 +168,31 @@ class UserController extends BaseController {
 			$p->point = $point;
 			$p->product_id = $find->get()->first()->id;
 
-			$p->save(); 
+			$p->save();
 
-			Product::where("code", Input::get("code"))->update(["code" => ""]);			
+			$find->update(["code" => ""]);
+
+			// If the user has 1000 points then add amount 500
+			$how_many_points = Point::where('user_id', Auth::user()->id)->sum('point');
+
+			if($how_many_points >= 1000)
+			{
+				// Check the user's referal is an admin or not
+				$my_referal = User::find(Auth::user()->referal_id);
+
+				if($my_referal->type == 'admin')
+				{
+					$distributed_amount = 600;
+				}
+				else
+				{
+					$distributed_amount = 300;
+				}
+				Amount::create(['user_id'=>Auth::user()->id, 'amount'=>500, 'status'=>1]);
+				Amount::create(['user_id'=>Auth::user()->referal_id, 'amount'=>$distributed_amount]);
+
+				Point::where('user_id', Auth::user()->id)->delete();
+			}
 
 			return Redirect::back()
 			->with("event", "<p class='alert alert-success'><span class='glyphicon glyphicon-ok'></span> Congratulation! You got " .$point. " points.</p>");

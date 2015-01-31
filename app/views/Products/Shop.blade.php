@@ -1,5 +1,9 @@
 @extends("Main.Boilerplate")
 
+@section("title")
+<title>Products</title>
+@stop
+
 @section("content")
 	
 	<section>

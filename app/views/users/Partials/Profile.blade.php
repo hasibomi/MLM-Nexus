@@ -1,7 +1,7 @@
 <?php
 $select_profile = User::where('id', '=', Auth::id())->get();
 ?>
-<h3>You have {{ $point }}</h3>
+<h3><small>You have</small> {{ $point }} | {{ $amount }}</h3>
 
 @foreach($select_profile as $profile)
 

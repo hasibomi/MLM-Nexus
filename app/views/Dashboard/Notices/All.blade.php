@@ -24,6 +24,7 @@
                         	<th>#</th>
                             <th>Notice ID</th>
                             <th>Date</th>
+                            <th></th>
                             <th>User</th>
                             <th></th>
                             <th></th>
@@ -38,9 +39,10 @@
                                     <?php $date = explode(" ", $notice->created_at); $corr_date = explode("-", $date[0]); ?>
                                     <a href="{{ url('dashboard/notice/edit/' . $notice->id) }}">{{ $corr_date[2] }}-{{ $corr_date[1] }}-{{ $corr_date[0] }}</a>
                                 </td>
+                                <td>{{ substr($notice->body, 0, 50) }}</td>
                                 <td>
                                     <?php $notice_user = rtrim($notice->user_id, ", "); ?>
-                                    <h1>{{ $notice_user }}</h1>
+                                    {{ $notice_user == "" ? "No user is associated" : $notice_user }}
                                 </td>
                                 <td width="5%">
                                 	<a href="{{ url('dashboard/notice/edit/' . $notice->id) }}" class="btn btn-xs btn-success">
