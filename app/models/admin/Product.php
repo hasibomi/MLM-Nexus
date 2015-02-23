@@ -12,4 +12,9 @@ class Product extends Eloquent
 	{
 		return $this->belongsTo('Catagory', 'catagory_id', 'id');
 	}
+
+    public function subcatagory()
+    {
+        return $this->belongsTo('Subcatagory', 'subcatagory_id', 'id');
+    }
 }

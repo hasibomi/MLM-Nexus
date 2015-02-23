@@ -10,13 +10,10 @@ Route::get("account", ["as" => "admin-account", "uses" => "UserController@accoun
 
 // Products
 Route::get('/shop', array('as'	=> 'products', 'uses'	=> 'HomeController@products'));
-Route::get('/products/view/{id}', ['as'=>'product-view','uses'=>'HomeController@productView']);
-Route::get('/products/all/{id}', ['as'=>'products-by-catagory', 'uses'=>'HomeController@productsByCatagory']);
+Route::get('/products/view/{slug}', ['as'=>'product-view','uses'=>'HomeController@productView']);
+Route::get('products/all/{id}', ['as'=>'products-by-catagory', 'uses'=>'HomeController@productsByCatagory']);
+Route::get('products/subcatagory/all/{id}', ['as'=>'products-by-catagory', 'uses'=>'HomeController@productsBySubCatagory']);
 Route::get('/product-details', array('as'	=> 'product-details', 'uses'	=> 'HomeController@productDetails'));
-
-// Cart
-Route::get('/cart', array('as' => 'cart', 'uses' => 'HomeController@cart'));
-Route::get('/checkout', array('as' => 'checkout', 'uses' => 'HomeController@checkOut'));
 
 // Contact Us
 Route::get('/contact-us', array('as' => 'contact-us', 'uses' => 'HomeController@contactUs'));
@@ -25,6 +22,12 @@ Route::get("logout", ["as" => "logout", "uses" => "users@logout"]);
 // Notice
 Route::get("notice", ["as" => "notice-page", "uses" => "HomeController@notice"]);
 Route::get("notice/view/{id}", ["as" => "notice-view-page", "uses" => "HomeController@noticeView"]);
+
+// Account recovery
+Route::get("account/recovery", ["uses" => "HomeController@recover"]);
+
+// Reset password page from email
+Route::get("account/recover/resetpass/email/{email}", ["uses" => "HomeController@finalStepReset"]);
 
 //Unauthenticated group
 
@@ -41,6 +44,15 @@ Route::post('login', array('as'	=> 'login-post', 'uses'	=> 'users@login'));
 Route::group(array('before' => 'csrf'), function() {
 	// Contact form submission
 	Route::post("submitContact", ["as" => "submit-contact", "uses" => "HomeController@submit"]);
+
+    // Account update
+    Route::post("account/update", ["uses" => "ProfileController@update"]);
+
+    // Account recover
+    Route::post("account/recovery/recover", ["uses" => "HomeController@passRecover"]);
+
+    // Reset password final
+    Route::post("account/recovery/newpassword", ["uses" => "HomeController@update"]);
 });
 
 // Member group
@@ -87,17 +99,23 @@ Route::group(array('before' => 'admin'), function() {
 
 	// Products
 	Route::get("product/add", ["as" => "add-product-page", "uses" => "ProductController@addProductPage"]);
-	Route::get("products/delete/{id}", ["as" => "delete-product", "uses" => "ProductController@deleteProduct"]);
+	Route::get("products/delete/{slug}", ["as" => "delete-product", "uses" => "ProductController@deleteProduct"]);
+    // Find subcatagory
+    Route::post("products/add/find_subcatagory", ["uses" => "SubcatagoryController@findSubcatagory"]);
 
 	// Catagory
 	Route::get('catagory/add', array('as'	=> 'add-catagory-page', 'uses'	=> 'ProductController@addCatagoryPage'));
-	Route::get('catagory/edit_catagory/{id}', array('as'	=> 'edit-catagory-page', 'uses'	=> 'ProductController@editCatagoryPage'));
+    Route::get('catagory/edit_catagory/{slug}', array('as'	=> 'edit-catagory-page', 'uses'	=> 'ProductController@editCatagoryPage'));
+
+    // Sub catagory
+    Route::get('subcatagory/add', array('uses'	=> 'SubcatagoryController@add')); //
+	Route::get('subcatagory/edit/{slug}', array('uses'	=> 'SubcatagoryController@edit'));
 
 	// User Management
 	Route::get("dashboard/usermanagement", ["as" => "user-management-page", "uses" => "UserManagement@userManagementPage"]);
-	Route::get('dashboard/user/{id}', array('as' => 'user-view', 'uses' => 'UserManagement@viewUser'));
-	Route::get('dashboard/user/activate/{id}', array('as' => 'user-active', 'uses' => 'UserManagement@activeUser'));
-	Route::get('dashboard/user/deactivate/{id}', array('as' => 'user-deactive', 'uses' => 'UserManagement@deactiveUser'));
+	Route::get('dashboard/user/{slug}', array('as' => 'user-view', 'uses' => 'UserManagement@viewUser'));
+	Route::get('dashboard/user/activate/{slug}', array('as' => 'user-active', 'uses' => 'UserManagement@activeUser'));
+	Route::get('dashboard/user/deactivate/{slug}', array('as' => 'user-deactive', 'uses' => 'UserManagement@deactiveUser'));
 
 	// Content Management
 	Route::get("dashboard/add-content", ["as" => "add-content-page", "uses" => "ContentManagement@addContent"]);
@@ -121,7 +139,7 @@ Route::group(array('before' => 'admin'), function() {
             return $id + 1;
         }
     });
-	
+
 	// Contact Info
 	Route::controller('dashboard/contact-info', 'ContactController');
 
@@ -142,12 +160,17 @@ Route::group(array('before' => 'admin'), function() {
 	Route::group(["before" => "csrf"], function() {
         // Products
         Route::post('dashboard/addProduct', ['as' => 'product-store', 'uses' => 'ProductController@addProduct']);
-        Route::post('dashboard/editProduct/{id}', ['as' => 'update-product', 'uses' => 'ProductController@editProduct']);
+        Route::post('dashboard/editProduct/{slug}', ['as' => 'update-product', 'uses' => 'ProductController@editProduct']);
 
 		// Catagory
 		Route::post("catagory/addCatagory", ["uses" => "ProductController@addCatagory"]);
-		Route::post("catagory/edit-catagory/{id}", ["uses" => "ProductController@updateCatagory"]);
-		Route::post("catagory/delete_catagory/{id}", ["as" => "delete-catagory", "uses" => "ProductController@deleteCatagory"]);	
+		Route::post("catagory/edit-catagory/{slug}", ["uses" => "ProductController@updateCatagory"]);
+		Route::post("catagory/delete_catagory/{id}", ["as" => "delete-catagory", "uses" => "ProductController@deleteCatagory"]);
+
+        // Sub Catagory
+        Route::post("subcatagory/store", ["uses" => "SubcatagoryController@store"]);
+        Route::post("subcatagory/update/{slug}", ["uses" => "SubcatagoryController@update"]);
+        Route::post("subcatagory/destroy/{slug}", ["uses" => "SubcatagoryController@destroy"]);
 
 		// Content Management
         Route::post( 'dashboard/storeContent', array('as' => 'add-content', 'uses' => 'ContentManagement@store') );

@@ -4,7 +4,7 @@ class Cart extends Eloquent
 {
 	protected $fillable = array('invoice', 'product_id', 'user_id', 'quantity', 'catagory');
 
-    public static  $rules = array('id'=>'required', 'quantity'=>'required|min:1');
+    public static  $rules = array('id'=>'required', 'quantity'=>'required|min:1', 'price' => 'required');
 
     public function product()
     {
@@ -13,7 +13,7 @@ class Cart extends Eloquent
 
     public function catagory()
     {
-    	return $this->belongsTo('Catagory', 'catagory', 'id');
+    	return $this->belongsTo('Catagory', 'catagory_id', 'id');
     }
     
     public function user()

@@ -15,6 +15,7 @@ class Catagories extends Migration {
 		Schema::create('catagories', function($theCatagory) {
 			$theCatagory->increments('id');
 			$theCatagory->string('catagory_name')->unique();
+            $theCatagory->string("slug");
 			$theCatagory->string('catagory_type');
 			$theCatagory->timestamps();
 		});

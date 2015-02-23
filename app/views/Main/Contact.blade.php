@@ -8,6 +8,13 @@
 
 	 <div id="contact-page" class="container">
     	<div class="bg">
+            <div class="row">
+                @foreach (Content::where('call_name', '=', 'contact')->where('active', '=', 1)->get() as $content)
+                    {{ $content->title }}
+                    {{ $content->description }}
+                @endforeach
+            </div>
+
 	    	<div class="row">    		
 	    		<div class="col-sm-12">    			   			
 					<h2 class="title text-center">Get In Touch</strong></h2>
@@ -108,14 +115,6 @@
 	    			</div>
     			</div> <!-- /.col-sm-4 -->
 	    	</div> <!-- /.row -->
-
-	    	<div class="row">
-				@foreach (Content::where('call_name', '=', 'contact')->where('active', '=', 1)->get() as $content)
-					{{ $content->title }}
-					{{ $content->description }}
-				@endforeach
-			</div>
-
     	</div>	<!-- /.bg -->
     </div><!--/#contact-page.container-->
 	

@@ -9,13 +9,13 @@
 <div class="container">
 	<h1 class="page-header">Admin Dashboard</h1>
 	
-	<a href="javascript:;" class="btn btn-success">
+	<a href="{{ url('shop') }}" class="btn btn-success">
 		<span class="glyphicon glyphicon-list-alt"></span>
 		@if(Product::all()->count() < 2) Product - <span class="badge">{{ Product::all()->count() }}</span>
 		@else Products - <span class="badge">{{ Product::all()->count() }}</span> @endif
 	</a>
 	
-	<a href="javascript:;" class="btn btn-warning">
+	<a href="{{ url('shop') }}" class="btn btn-warning">
 		<span class="glyphicon glyphicon-th-large"></span>
 		@if(Catagory::all()->count() < 2) Catagory - <span class="badge">{{ Catagory::all()->count() }}</span>
 		@else Catagorys - <span class="badge">{{ Catagory::all()->count() }}</span> @endif
@@ -55,9 +55,9 @@
 						
 						<tbody>
 							@if($query->count() == 0)
-							<tr><td colspan="10">No orders found</td></tr>
+							    <tr><td colspan="10">No orders found</td></tr>
 							@else
-								@foreach($query as $order)
+								@foreach($query->get() as $order)
 									<tr>
 										<td>{{ $order->id }}</td>
 										<td>{{ $order->product->first()->product_code }}</td>

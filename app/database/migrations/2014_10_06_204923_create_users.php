@@ -16,6 +16,7 @@ class CreateUsers extends Migration {
 		{
 			$theUser->increments('id');
 			$theUser->string('name');
+			$theUser->string('slug');
 			$theUser->string('email');
 			$theUser->string('password');
 			$theUser->string('gender', 7);
@@ -23,12 +24,12 @@ class CreateUsers extends Migration {
 			$theUser->integer('month_of_birth');
 			$theUser->integer('year_of_birth');
 			$theUser->string('profile_picture');
-      $theUser->text('permanent_address');
+      		$theUser->text('permanent_address');
 			$theUser->text('present_address');
 			$theUser->string('designation', 100);
 			$theUser->string('type', 7);
 			$theUser->integer('referal_id');
-			$theUser->integer('token');
+			$theUser->string('token');
 			$theUser->integer('active');
 			$theUser->string('arrange_group', 12);
 			$theUser->string('remember_token', 100);

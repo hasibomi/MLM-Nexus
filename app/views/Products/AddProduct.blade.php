@@ -1,5 +1,9 @@
 @extends("Main.Boilerplate")
 
+@section('title')
+    <title>Add Product</title>
+@stop
+
 @section('content')
 
 	<br />
@@ -22,9 +26,9 @@
 						</div>
 						<div class="col-md-6">
 							<?php
-							$query = Catagory::get();
+							$query = Catagory::all();
 							?>
-							<select name="catagory">
+							<select name="catagory" id="catagory">
 								@foreach ($query as $row)
 									<option value="{{ $row->id }}">{{ $row->catagory_name }}</option>
 								@endforeach
@@ -32,6 +36,15 @@
 						</div>
 					</div>
 				</div>
+
+                {{-- Sub catagory div --}}
+                <div class="form-group" id="subcatagory_div" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-offset-2 col-md-6">
+                            <select class="form-control" name="subcatagory" id="subcatagory"></select>
+                        </div>
+                    </div>
+                </div>
 				<br />
 				<div class="row">
 					<div class="col-md-offset-2">
@@ -158,7 +171,7 @@
 						</div>
 					</div>
 				</div>
-				<br />
+                <br/>
 				<div class="row">
 					<div class="col-md-offset-2">
 						<div class="col-md-7">
@@ -170,13 +183,12 @@
 				</div>
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-2"><label for="product_code">Product code</label></div>
+						<div class="col-md-2"><label for="product_code">Point</label></div>
 						<div class="col-md-6">
 						    {{ Form::text('point', $value = e(Input::old('point')), $attributes = ['class' => 'form-control', 'placeholder' => 'Point']) }}
 						</div>
 					</div>
 				</div>
-				<br />
 				<div class="row">
                     <div class="col-md-offset-2">
                         <div class="col-md-7">
@@ -186,10 +198,9 @@
                         </div>
                     </div>
                 </div>
-                <br />
 				<div class="form-group">
                     <div class="row">
-                        <div class="col-md-2"><label for="point">Point</label></div>
+                        <div class="col-md-2"><label for="point">Product code</label></div>
                         <div class="col-md-6">
                             {{ Form::text('product_code', $value = e(Input::old('product_code')), $attributes = ['class' => 'form-control', 'placeholder' => 'Product code']) }}
                         </div>
@@ -213,4 +224,28 @@
 	<br />
 	<br />
 	
+@stop
+
+@section('script')
+    <script>
+        function getSubdcatagory()
+        {
+            $.ajax({
+                url: '{{ url("products/add/find_subcatagory") }}',
+                type: 'post',
+                dataType: 'html',
+                data: 'catagory=' + $("#catagory").val(),
+                success: function(data) {
+                    $("#subcatagory_div").show();
+                    $("#subcatagory").html(data);
+                }
+            })
+        }
+
+        getSubdcatagory();
+
+        $("#catagory").change(function() {
+            getSubdcatagory();
+        });
+    </script>
 @stop

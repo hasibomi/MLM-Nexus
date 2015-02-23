@@ -33,20 +33,6 @@
 						<div class="logo pull-left">
 							<a href="{{ url("/") }}"><img src="<?php echo asset('assets/images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
-
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa">
-									BANGLADESH
-								</button>
-							</div>
-							
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa">
-									TAKA
-								</button>
-							</div>
-						</div>
 					</div>
 
 					<div class="col-sm-8">
@@ -101,33 +87,34 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ url("/") }}" class="{{ Request::path() == '/' ? 'active' : '' }}">Home</a></li>
-								<li class="dropdown"><a href="#" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : '' }}">Shop<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : Request::is('subcatagory/*') ? 'active' : Request::is('catagory/*') ? 'active' : '' }}">Shop<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="{{ url("shop") }}" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : '' }}">Products</a></li>
+                                        <li><a href="{{ url("shop") }}" class="{{ Request::path() == 'shop' ? 'active' : Request::is('products/*') ? 'active' : Request::is('subcatagory/*') ? 'active' : Request::is('catagory/*') ? 'active' : '' }}">Products</a></li>
                                     </ul>
                                 </li>
+
 								<li><a href="{{ url("contact-us") }}" class="{{ Request::path() == 'contact-us' ? 'active' : '' }}">Contact</a></li>
 								<li><a href="{{ url("notice") }}" class="{{ Request::path() == "notice" ? "active" : Request::is("notice/*") ? "active" : "" }}">Notice</a></li>
 								@if(Auth::user())
 									<li><a href="{{ url('personal-notice') }}" class="{{ Request::path() == "personal-notice" ? "active" : Request::is("personal-notice/*") ? "active" : "" }}">Personal Notice</a></li>
 								@endif
 							</ul>
+                            @if(Admin::isAdmin())
+                                <div class="col-md-1">
+                                    <a href="{{ url("dashboard") }}" class="btn btn-success btn-xs">
+                                        <span class="glyphicon glyphicon-dashboard"></span> Dashboard
+                                    </a>
+                                </div>
+                            @endif
 						</div>
 					</div>
 
-					@if(Admin::isAdmin())
-						<div class="col-md-2 pull-right">
-							<a href="{{ url("dashboard") }}" class="btn btn-success">
-								<span class="glyphicon glyphicon-dashboard"></span> Dashboard
-							</a>
-						</div>
-					@endif
-
-					<div class="col-sm-3">
+					<div class="col-sm-3 pull-right">
 						<div class="search_box pull-right">
 							<input type="text" placeholder="Search"/>
 						</div>
 					</div>
+
 				</div>
 			</div>
 		</div><!--/header-bottom-->

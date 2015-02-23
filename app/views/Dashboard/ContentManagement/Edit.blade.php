@@ -12,17 +12,8 @@
     
     <div class="container">
 
-        @if ($errors->all())
-            
-            @foreach($errors->all() as $error)
-                
-                <div class="row">
-                    <div class="alert alert-danger">{{$error}}</div>
-                </div>
-
-            @endforeach
-
-        @endif
+        {{-- Flash messages & errors --}}
+        @include('Partials.Event')
 
         {{ Form::open(array('url' => 'dashboard/update-content', 'files' => true)) }}
 
@@ -42,9 +33,19 @@
                 <div class="row">{{ Form::label('page', 'Add to') }}</div>
                 <div class="row">
                     <select name="page">
-                        <option value="home">Home page</option>
-                        <option value="contact">Contact page</option>
-                        <option value="slider">Slider</option>
+                        @if($row->first()->call_name == 'home')
+                            <option value="home" selected>Home page</option>
+                            <option value="contact">Contact page</option>
+                            <option value="slider">Slider</option>
+                        @elseif($row->first()->call_name == 'contact')
+                            <option value="home">Home page</option>
+                            <option value="contact" selected>Contact page</option>
+                            <option value="slider">Slider</option>
+                        @elseif($row->first()->call_name == 'slider')
+                            <option value="home">Home page</option>
+                            <option value="contact">Contact page</option>
+                            <option value="slider" selected>Slider</option>
+                        @endif
                     </select>
                 </div>
             </div>

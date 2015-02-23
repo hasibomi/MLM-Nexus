@@ -7,6 +7,7 @@ class UserTableSeeder extends Seeder
 		$u = new User;
 
 		$u->name = "Admin";
+        $u->slug = Str::slug('Admin');
 		$u->email = "admin@nexusitzone.com";
 		$u->password = Hash::make("123456");
 		$u->active = 1;

@@ -15,6 +15,8 @@
     <link href="<?php echo asset('assets/css/animate.css'); ?>" rel="stylesheet">
 	<link href="<?php echo asset('assets/css/main.css'); ?>" rel="stylesheet">
 	<link href="<?php echo asset('assets/css/responsive.css'); ?>" rel="stylesheet">
+    {{ HTML::style("assets/css/sub-menu.css") }}
+    {{ HTML::style('assets/css/app.css') }}
     <!--[if lt IE 9]>
     <script src="<?php echo asset('assets/js/html5shiv.js'); ?>"></script>
     <script src="<?php echo asset('assets/js/respond.min.js'); ?>"></script>
@@ -26,15 +28,15 @@
     <link rel="apple-touch-icon-precomposed" href="<?php echo asset('assets/images/ico/apple-touch-icon-57-precomposed.png'); ?>">
 </head><!--/head-->
 <body>
-	@include("Partials.Menu") 
+	@include("Partials.Menu")
 
-	@yield('content')
+    @yield('content')
 
-	<footer id="footer"><!--Footer-->		
+	<footer id="footer"><!--Footer-->
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2014 <a href="http://www.nexusitzone.com">NEXUS IT ZONE</a>. All rights reserved.</p>
+					<p class="pull-left">Copyright © 2014 - {{ date("Y") }} <a href="http://www.nexusitzone.com">NEXUS IT ZONE</a>. All rights reserved.</p>
 				</div>
 			</div>
 		</div>	

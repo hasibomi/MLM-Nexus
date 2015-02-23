@@ -29,20 +29,6 @@
 						<div class="logo pull-left">
 							<a href="{{ url('dashboard/') }}"><img src="<?php echo asset('assets/images/logo/nexus.png');?>" width="139" height="39" alt="" /></a>
 						</div>
-
-						<div class="btn-group pull-right">
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa">
-									BANGLADESH
-								</button>
-							</div>
-				
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle usa">
-									TAKA
-								</button>
-							</div>
-						</div>
 					</div>
 
 					<div class="col-sm-8">
@@ -77,8 +63,8 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ url('dashboard/') }}" class="{{ Request::path() == 'dashboard' ? 'active' : '' }}">Dash - Home</a></li>
-                                <li><a href="{{ url('dashboard/usermanagement') }}" class="{{ Request::path() == 'dashboard/usermanagement' ? 'active' : Request::is('dashboard/usermanagement/*') ? 'active' : '' }}">User Management</a></li>
-								<li><a href="{{ url('dashboard/manage-content') }}" class="{{ Request::path() == 'dashboard/manage-content' ? 'active' : Request::is('dashboard/manage-content/*') ? 'active' : '' }}">Manage Content</a></li>
+                                <li><a href="{{ url('dashboard/usermanagement') }}" class="{{ Request::path() == 'dashboard/usermanagement' ? 'active' : Request::is('dashboard/user/*') ? 'active' : '' }}">User Management</a></li>
+								<li><a href="{{ url('dashboard/manage-content') }}" class="{{ Request::path() == 'dashboard/manage-content' ? 'active' : Request::is('dashboard/edit-content/*') ? 'active' : Request::path() == ('dashboard/contact-info') ? 'active' : Request::path() == ('dashboard/change-settings') ? 'active' : Request::path() == ('dashboard/slider') ? 'active' : Request::path() == ('dashboard/add-slider') ? 'active' : Request::is('dashboard/edit-slider/*') ? 'active' : Request::is('dashboard/contact-info/*') ? 'active' : '' }}">Manage Content</a></li>
 								<li><a href="{{ url('dashboard/order') }}" class="{{ Request::path() == 'dashboard/order' ? 'active' : Request::is('dashboard/order/*') ? 'active' : '' }}">Order</a></li>
 								<li><a href="{{ url("dashboard/support") }}" class="{{ Request::path() == 'dashboard/support' ? 'active' : Request::is('dashboard/support/*') ? 'active' : '' }}">Support</a></li>
                                 <li><a href="{{ url("dashboard/notice") }}" class="{{ Request::path() == 'dashboard/notice' ? 'active' : Request::is('dashboard/notice/*') ? 'active' : '' }}">Notice</a></li>

@@ -62,17 +62,11 @@
 							
 							<div class="tab-pane fade" id="settings">
 								<ul class="nav nav-tabs" role="tablist">
-									<li class="active"><a href="#updateinfo" role="tab" data-toggle="tab">Change profile picture</a></li>
-									<li><a href="#rechage" role="tab" data-toggle="tab">Recharge point</a></li>
+									<li class="active"><a href="#rechage" role="tab" data-toggle="tab">Recharge point</a></li>
 								</ul>
 								
 								<div class="tab-content">
-									<div class="tab-pane fade in active" id="updateinfo">
-										<br />
-										@include("Users.Partials.UpdateInfo")
-									</div>
-									<!-- /#updateinfo -->
-									<div class="tab-pane fade" id="rechage">
+									<div class="tab-pane fade in active" id="rechage">
 										<br />
 										
 										@include("Users.Partials.Recharge")

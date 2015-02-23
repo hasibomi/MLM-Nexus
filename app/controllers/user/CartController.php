@@ -8,13 +8,17 @@ class CartController extends BaseController
 
         if ($validator->passes() == true)
         {
+            $key = 'kiobostha?kiobos';
+            $price = rtrim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, base64_decode(Input::get('price')), MCRYPT_MODE_ECB));
+
             $cart = new Cart;
 
             $cart->invoice = uniqid(rand());
             $cart->user_id = Auth::user()->id;
             $cart->product_id = Input::get('id');
             $cart->quantity = Input::get('quantity');
-            $cart->catagory = Input::get('catagory');
+            $cart->price = Input::get('quantity') * $price;
+            $cart->catagory_id = Input::get('catagory');
 
             if ($cart->save())
             {
@@ -45,6 +49,7 @@ class CartController extends BaseController
     	$query = Cart::find(Input::get('cat_id'));
  
     	$query->quantity = Input::get('quantity');
+        $query->price = Input::get('quantity') * Input::get('price');
 
     	if ($query->save())
     	{

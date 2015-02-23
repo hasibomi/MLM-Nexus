@@ -24,9 +24,9 @@ class ProductController extends BaseController
                 'condition'     => 'required',
                 'quantity'		=> 'required',
                 'brand'         => 'required',
-				'image'			=> 'required',
+				'image'			=> 'required|image|mimes:jpg,jpeg,png|max:6000',
 				'point'			=> 'required',
-                'product_code'  => 'required|unique:products'
+                'product_code'  => 'required|unique:products',
 			));
 			
 			if ($validator->fails()) {
@@ -35,47 +35,36 @@ class ProductController extends BaseController
 								->withInput();
 			} else {
 				$file 			= Input::file('image');
-				$file_name 		= $file->getClientOriginalName();
-				$file_type 		= $file->getMimeType();
-				$file_size 		= $file->getSize()/1000;
+
+				$file_name 		    = date('d-m-Y-h-i-s-') . $file->getClientOriginalName();
 				$destination 	= $destination = "assets/images/shop/";
+
+                $file->move($destination, $file_name);
+
+                $product = New Product;
+
+                $product->name 			    = Input::get('name');
+                $product->slug              = Str::slug(Input::get('name'));
+                $product->price 		    = Input::get('price');
+                $product->description 	    = Input::get('description');
+                $product->catagory_id 		= Input::get('catagory');
+                $product->subcatagory_id    = Input::get('subcatagory');
+                $product->quantity 		    = Input::get('quantity');
+                $product->product_condition = Input::get('condition');
+                $product->brand             = Input::get('brand');
+                $product->image 		    = $file_name;
+                $product->point 		    = Input::get('point');
+                $product->product_code      = Input::get('product_code');
+                $product->code 			    = uniqid(str_random(9));
 				
-				if ($file_type == 'image/jpg' || $file_type == 'image/jpeg' || $file_type == 'image/png') {
-					if ($file_size <= 2000) {
-						if ($file->move($destination, $file_name)) {
-							$product = New Product;
-				
-							$product->name 			    = Input::get('name');
-							$product->price 		    = Input::get('price');
-							$product->description 	    = Input::get('description');
-							$product->catagory_id 		= Input::get('catagory');
-							$product->quantity 		    = Input::get('quantity');
-                            $product->product_condition = Input::get('condition');
-                            $product->brand             = Input::get('brand');
-							$product->image 		    = $file_name;
-							$product->point 		    = Input::get('point');
-                            $product->product_code      = Input::get('product_code');
-							$product->code 			    = uniqid(str_random(9));
-							
-							if ($product->save()) {
-								return Redirect::route('add-product-page')
-					  							->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Product added!</p>');
-							} else {
-								return Redirect::route('add-product-page')
-					  							->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>');
-							}
-						} else {
-							return Redirect::route('add-product-page')
-					  							->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Cannot upload image at this time. Please try after sometime</p>');
-						}
-					} else {
-						return Redirect::route('add-product-page')
-					  							->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Image cannot be more than 2 MB</p>');
-					}
-				} else {
-					return Redirect::route('add-product-page')
-					  							->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Invalid file</p>');
-				}
+				if($product->save())
+                {
+                    return Redirect::back()
+                        ->with("event", '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Product saved successfully.</p>');
+                }
+
+                return Redirect::back()
+                    ->with("event", '<p class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> Error occured. Please try after sometime</p>');
 			}
 		} else {
 			return Redirect::route('admin-login')
@@ -86,20 +75,9 @@ class ProductController extends BaseController
 	/**
 	 * Edit product
 	 */
-	public function editProduct($id)
+	public function editProduct($slug)
 	{
-		$validator = Validator::make(
-			array (
-					"catagory"			=> Input::get("catagory"),
-					"product_name"		=> Input::get("product_name"),
-					"price"				=> Input::get("price"),
-					"condition"			=> Input::get("condition"),
-					"quantity"			=> Input::get("quantity"),
-					"brand"				=> Input::get("brand"),
-					"description"		=> Input::get("description"),
-					"point"				=> Input::get("point"),
-					"product_code"      => Input::get('product_code')
-			),
+		$validator = Validator::make(Input::all(),
 
 			array (
 				"catagory"			=> "required",
@@ -110,7 +88,8 @@ class ProductController extends BaseController
 				"brand"				=> "required",
 				"description"		=> "required",
 				"point"				=> "required",
-				'product_code'      => 'required'
+				'product_code'      => 'required',
+                "image"             => 'image|mimes:jpg,jpeg,png|max:6000'
 			)
 		);
 
@@ -119,19 +98,26 @@ class ProductController extends BaseController
 							->withErrors($validator)
 							->withInput();
 		} else {
-			$product = Product::find($id);
+			$product = Product::where("slug", $slug);
 
-			$product->catagory_id 		    = Input::get("catagory");
-			$product->name 			        = Input::get("product_name");
-			$product->price 		        = Input::get("price");
-			$product->description 	        = Input::get("description");
-			$product->point 		        = Input::get("point");
-			$product->quantity 		        = Input::get("quantity");
-			$product->product_condition 	= Input::get("condition");
-			$product->brand 		        = Input::get("brand");
-			$product->product_code          = Input::get('product_code');
+            $update = $product->update(
+                [
+                    'catagory_id' => Input::get('catagory'),
+                    'subcatagory_id' => Input::get('subcatagory'),
+                    'name' => Input::get('product_name'),
+                    'slug' => Str::slug(Input::get('product_name')),
+                    'price' => Input::get('price'),
+                    'description' => Input::get('description'),
+                    'point' => Input::get('point'),
+                    'quantity' => Input::get('quantity'),
+                    'product_condition' => Input::get('condition'),
+                    'brand' => Input::get('brand'),
+                    'product_code' => Input::get('product_code')
 
-			if (Input::file("image") != "") {
+                ]
+            );
+
+			if (Input::hasFile("image")) {
 				$file = Input::file('image');
 				$image = $file->getClientOriginalName();
 				$destination = "assets/images/shop/";
@@ -141,10 +127,26 @@ class ProductController extends BaseController
 					return "Move error";
 				}
 
-				$product->image 	= $image;
+                $update = $product->update(
+                    [
+                        'catagory_id' => Input::get('catagory'),
+                        'subcatagory_id' => Input::get('subcatagory'),
+                        'name' => Input::get('product_name'),
+                        'slug' => Str::slug(Input::get('product_name')),
+                        'price' => Input::get('price'),
+                        'description' => Input::get('description'),
+                        'point' => Input::get('point'),
+                        'quantity' => Input::get('quantity'),
+                        'product_condition' => Input::get('condition'),
+                        'brand' => Input::get('brand'),
+                        'product_code' => Input::get('product_code'),
+                        'image' => $image
+
+                    ]
+                );
 			}
 
-			if ( $product->save() ) {
+			if ( $update ) {
 				return Redirect::route("products")
 								->with("event", '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Product has been changed successfully</p>');
 			} else {
@@ -155,13 +157,13 @@ class ProductController extends BaseController
 	}
 	
 	// Delete product
-	public function deleteProduct($id)
+	public function deleteProduct($slug)
 	{
-		$query = Product::find($id);
+		$query = Product::where('slug', $slug);
 		
 		if($query->delete())
 		{
-			File::delete("assets/images/shop/" . $query->image);
+			File::delete("assets/images/shop/" . $query->first()->image);
 			
 			return Redirect::back()->with("event", "<p class='alert alert-success'><span class='glyphicon glyphicon-ok'></span> Product deleted</p>");
 		}
@@ -182,9 +184,9 @@ class ProductController extends BaseController
 	/**
 	 * Edit catagory page
 	 */
-	public function editCatagoryPage($id)
+	public function editCatagoryPage($slug)
 	{
-		$catagories = Catagory::where('id', '=', $id)->get();
+		$catagories = Catagory::where('slug', '=', $slug)->get();
 
 		return View::make('Catagories.EditCatagory', array('row'	=> $catagories));
 	}
@@ -216,7 +218,7 @@ class ProductController extends BaseController
 			$catagory = new Catagory;
 
 			$catagory->catagory_name = Input::get('catagory_name');
-			$catagory->catagory_type = Input::get('catagory_type');
+            $catagory->slug = Str::slug(Input::get('catagory_name'));
 
 			if ($catagory->save())
 			{
@@ -232,46 +234,16 @@ class ProductController extends BaseController
 	}
 
 	/**
-	 * Edit catagory
-	 */
-	public function editCatagory($id)
-	{
-		$validator = Validator::make(Input::all(), array(
-				'catagory_name'		=> 'required',
-				'catagory_type'		=> 'required'
-			)
-		);
-
-		if ($validator->fails() == TRUE) {
-			return Redirect::back()
-							->withErrors($validator)
-							->withInput();
-		} else {
-			$catagory = Catagory::find($id);
-
-			$catagory->catagory_name 	= Input::get("catagory_name");
-			$catagory->catagory_type 	= Input::get('catagory_type');
-
-			if ($catagory->save()) {
-				return Redirect::back()
-								->with("event", '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Catagory has been successfully modified</p>');
-			} else {
-				return Redirect::back()
-								->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error happened. Please try after sometime.</p>');
-			}
-		}
-	}
-
-	/**
 	 * Delete catagory
 	 */
 	public function deleteCatagory($id)
 	{
 		$catagory = Catagory::find($id);
 
-		if ( $catagory->delete() ) {
-			Catagory::where("catagory_id", $id)->delete();
+        Subcatagory::where('catagory_id', $id)->delete();
+        Product::where('catagory_id', $id)->delete();
 
+		if ( $catagory->delete() ) {
 			return Redirect::back()
 							->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Catagory has been successfully deleted</p>');
 		} else {
@@ -280,7 +252,7 @@ class ProductController extends BaseController
 		}
 	}
 
-	public function updateCatagory($id)
+	public function updateCatagory($slug)
 	{
 		$validator = Validator::make(Input::all(),
 			array(
@@ -301,21 +273,32 @@ class ProductController extends BaseController
 		}
 		else
 		{
-			$catagory = Catagory::find($id);
+			$catagory = Catagory::where('slug', $slug);
 
-			$catagory->catagory_name = Input::get('catagory_name');
-			$catagory->catagory_type = Input::get('catagory_type');
+            if($catagory->count() > 0)
+            {
+                $update = $catagory->update(
+                    [
+                        'catagory_name' => Input::get('catagory_name'),
+                        'slug' => Str::slug(Input::get('catagory_name'))
+                    ]
+                );
 
-			if ($catagory->save())
-			{
-				return Redirect::to('shop')
-							->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Catagory updated successfully.</p>');
-			}
-			else
-			{
-				return Redirect::back()
-							->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error happened. Please try after sometime.</p>');
-			}
+                if ($update)
+                {
+                    return Redirect::to('shop')
+                                ->with('event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> Catagory updated successfully.</p>');
+                }
+                else
+                {
+                    return Redirect::back()
+                                ->with('event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error happened. Please try after sometime.</p>');
+                }
+            }
+            else
+            {
+                App::abort(404);
+            }
 		}
 	}
 	

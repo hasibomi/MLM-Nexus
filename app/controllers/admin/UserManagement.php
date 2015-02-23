@@ -5,29 +5,29 @@ class UserManagement extends BaseController
 	// User management page
 	public function userManagementPage()
 	{
-		$user = User::where( 'id', '!=', Auth::id() )->get();
+		$user = User::where( 'id', '!=', Auth::id() );
 		
 		return View::make('Dashboard.UserManagement.All', array('users' => $user));
 	}
 	
 	// View user
-	public function viewUser($id)
+	public function viewUser($slug)
 	{
-		$user = User::where( 'id', '=', $id )->get();
+		$user = User::where( 'slug', '=', $slug )->orWhere('id', $slug)->get();
 		
 		return View::make( 'Dashboard.UserManagement.Edit', array( 'user' => $user ) );
 	}
 	
 	// Activate user
-	public function activeUser($id)
+	public function activeUser($slug)
 	{
-		$query = User::find( $id );
+		$query = User::where( "slug", $slug );
 		
-		if($query)
+		if($query->count() > 0)
 		{
-			$query->active = 1;
+            $activate = $query->update(['active' => 1]);
 
-			if ( $query->save() )
+			if ( $activate )
 			{
 				return Redirect::back()->with( 'event', '<p class="alert alert-success"><span class="glyphicon glyphicon-ok"></span> User is activated </p>' );
 			}
@@ -38,20 +38,20 @@ class UserManagement extends BaseController
 		}
 		else
 		{
-			return Redirect::back()->with( 'event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>' );
+            App::abort(404);
 		}
 	}
 	
 	// Deactivate user
-	public function deactiveUser($id)
+	public function deactiveUser($slug)
 	{
-		$query = User::find( $id );
+		$query = User::where( "slug", $slug );
 		
-		if($query)
+		if($query->count() > 0)
 		{
-			$query->active = 0;
+			$deactivate = $query->update(['active' => 0]);
 
-			if ( $query->save() )
+			if ( $deactivate )
 			{
 				return Redirect::back()->with( 'event', '<p class="alert alert-warning"> User is deactivated </p>' );
 			}
@@ -62,7 +62,7 @@ class UserManagement extends BaseController
 		}
 		else
 		{
-			return Redirect::back()->with( 'event', '<p class="alert alert-danger"><span class="glyphicon glyphicon-remove"></span> Error occured. Please try after sometime</p>' );
+            App::abort(404);
 		}
 	}
 

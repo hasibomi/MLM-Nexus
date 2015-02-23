@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'hasibomi_mlm',
-			'username'  => 'hasibomi',
-			'password'  => 'fzae8107@9d0',
+			'database'  => 'hasibomi_mlm', //demonexu_mlm
+			'username'  => 'root', //demonexu
+			'password'  => '', //6SzsFHcSm&,G
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

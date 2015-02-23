@@ -1,0 +1,18 @@
+To: John Doe <doe@john.com>
+Subject: Registration Successfull
+Message-ID: <c8030670d7f30c9427b7cfd193b27e1e@localhost>
+Date: Wed, 04 Feb 2015 13:11:06 +0000
+From: MLM Website <donotreply@mlm.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html>
+    <head></head>
+   =20
+    <body>
+        <h4>Hi, John Doe</h4>
+        <p>Thank you for registering.</p>
+    </body>
+</html>

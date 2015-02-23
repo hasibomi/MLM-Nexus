@@ -160,6 +160,7 @@ class UserController extends BaseController {
 
 		if($find->count() > 0)
 		{
+			// Give the point associated with the code
 			$point = $find->get()->first()->point;
 
 			$p = new Point;
@@ -170,6 +171,12 @@ class UserController extends BaseController {
 
 			$p->save();
 
+			// Set user's designation
+			$active_member = User::find(Auth::user()->id);
+			$active_member->designation = "Active member";
+			$active_member->save();
+
+			// Remove the code from product. So that any user can't use the same code twice.
 			$find->update(["code" => ""]);
 
 			// If the user has 1000 points then add amount 500
@@ -177,6 +184,11 @@ class UserController extends BaseController {
 
 			if($how_many_points >= 1000)
 			{
+				// Set the user's designation to Model member
+				$model_member = User::find(Auth::user()->id);
+				$model_member->designation = "Model member";
+				$model_member->save();
+
 				// Check the user's referal is an admin or not
 				$my_referal = User::find(Auth::user()->referal_id);
 

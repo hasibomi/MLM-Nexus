@@ -10,4 +10,9 @@ class Point extends Eloquent
     {
         return $this->belongsTo("User", "user_id", "id");
     }
+
+    public function product()
+    {
+        return $this->belongsTo("Product", "product_id", "id");
+    }
 }

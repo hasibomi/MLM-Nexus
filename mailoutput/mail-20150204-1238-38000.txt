@@ -1,0 +1,18 @@
+To: Donald Duck <duck@forest.com>
+Subject: Registration Successfull
+Message-ID: <625715f337f64c8fd86129b0f9fb3d30@localhost>
+Date: Wed, 04 Feb 2015 12:38:45 +0000
+From: MLM Website <donotreply@mlm.com>
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html>
+<html>
+    <head></head>
+   =20
+    <body>
+        <h4>Hi, Donald Duck</h4>
+        <p>Thank you for registering.</p>
+    </body>
+</html>

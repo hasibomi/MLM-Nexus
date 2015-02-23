@@ -23,7 +23,7 @@
             <div class="col-sm-3">
                 <div class="left-sidebar">
                     <h2>Category</h2>
-                    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                    <div class="panel-group category-products" id="accordian"><!--category-products-->
                     @foreach($query as $catagory)
                     <div class="panel panel-default">
                         <div class="panel-heading">
@@ -34,7 +34,7 @@
                                 {{ $catagory->catagory_name }}
                             </a>
                             @else
-                            {{ HTML::link('/mlm/products/all/'.$catagory->id, $catagory->catagory_name) }}
+                            {{ HTML::link('products/all/'.$catagory->id, $catagory->catagory_name) }}
                             @endif
                             </h4>
                         </div>
@@ -43,7 +43,7 @@
                                 <ul>
                                     @if($catagory->catagory_type == 'Main catagory')
                                     @else
-                                    <li><a href="/mlm/products/all/{{ $catagory->id }}">{{ $catagory->catagory_type }} </a></li>
+                                    <li><a href="{{ url('products/all/' . $catagory->id) }}">{{ $catagory->catagory_type }} </a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -71,18 +71,18 @@
                                 <div class="overlay-content">
                                     @if (! Auth::user())
                                     <h2>
-                                    {{ HTML::link('/mlm/products/view/'.$product->id, $product->name) }}
+                                    {{ HTML::link('products/view/'.$product->id, $product->name) }}
                                     </h2>
                                     <p>
-                                    {{ HTML::link('/mlm/products/view/'.$product->id, $product->price) }} ৳
+                                    {{ HTML::link('products/view/'.$product->id, $product->price) }} ৳
                                     </p>
                                     @elseif (Auth::user() && Auth::user()->type != 'admin')
                                     <h2>
-                                    {{ HTML::link('/mlm/products/view/'.$product->id, $product->name) }}
+                                    {{ HTML::link('products/view/'.$product->id, $product->name) }}
                                     
                                     </h2>
                                     <p>
-                                    {{ HTML::link('/mlm/products/view/'.$product->id, $product->price) }} ৳
+                                    {{ HTML::link('products/view/'.$product->id, $product->price) }} ৳
                                     </p>
                                     @endif
                                     @if (! Auth::user())

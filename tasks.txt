@@ -1,0 +1,9 @@
+19.2.2015
+--------------
+
+1. Right alignment - Searchbox
+2. Footer will be always at bottom
+3. Secondary footer
+4. box on home page
+5. Login/Signup - Instead of signup form, there will be "signup" button then a modal will be poped up. login form will be aligned at left and signup form will be aligned right
+6. Color changing option

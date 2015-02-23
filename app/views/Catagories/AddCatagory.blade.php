@@ -1,5 +1,9 @@
 @extends('Main.Boilerplate')
 
+@section('title')
+    <title>Add Catagory</title>
+@stop
+
 @section('content')
 
 	<div class="container">
@@ -29,22 +33,6 @@
 					</div>
 				</div>
 			@endif
-			<div class="form-group">
-				<div class="row">
-					<div class="col-md-2">
-						{{ Form::label('catagory_type', 'Assign to') }}
-					</div>
-					<div class="col-md-5">
-						<select name="catagory_type">
-							<option value="Main catagory">This is a main catagory</option>
-							<?php $catagories = Catagory::select('catagory_name')->get(); ?>
-							@foreach ($catagories as $catagory)
-								<option>{{ $catagory->catagory_name }}</option>
-							@endforeach
-						</select>
-					</div>
-				</div>
-			</div>
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-5 col-md-offset-2">	

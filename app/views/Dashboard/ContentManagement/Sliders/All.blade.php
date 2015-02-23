@@ -45,7 +45,7 @@
                                     <td><a href="{{ url('dashboard/edit-slider/' . $row->id) }}">{{ $row->slider_text }}</a></td>
                                     <td>
                                        @if($row->slider != '')
-                                            <a href="{{ url('dashboard/edit-slider/' . $row->id) }}"><img src="{{ $row->slider }}" alt="{{$row->slider}}" width="70" height="70"></a>
+                                            <a href="{{ url('dashboard/edit-slider/' . $row->id) }}"><img src="{{ asset($row->slider) }}" alt="{{$row->slider}}" width="70" height="70"></a>
                                         @endif
                                     </td>
                                     <td>

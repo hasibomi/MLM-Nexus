@@ -35,7 +35,7 @@
 		<div class="footer-bottom">
 			<div class="container">
 				<div class="row">
-					<p class="pull-left">Copyright © 2014 <a href="http://www.nexusitzone.com" target="_blank">NEXUS IT ZONE</a>. All rights reserved.</p>
+					<p class="pull-left">Copyright © 2014 - {{ date("Y") }} <a href="http://www.nexusitzone.com" target="_blank">NEXUS IT ZONE</a>. All rights reserved.</p>
 					<p class="pull-right">Designed by <span><a target="_blank" href="http://www.nexusitzone.com"><img src="<?php echo asset('assets/images/logo/nexus.png');?>" width="100" height="20" alt="" /></a></span></p>
 				</div>
 			</div>

@@ -14,7 +14,7 @@
 				{{ Form::open(["url" => "refer"]) }}
 					{{ Form::email("email", "", ["placeholder" => "Your friend's email", "class" => "form-control"]) }}
 					<br />
-					{{ Form::textarea("referMessage", "Hi, I am " . $select_profile->first()->name . ". You can earn money from this website " . url("login"), ["class" => "form-control", "placeholder" => "Enter your message here..."]) }}
+					{{ Form::textarea("referMessage", "Hi, I am " . $select_profile->first()->name . ". You can earn money from this website " . url("login") . ". Please use this ID - " . $profile->id, ["class" => "form-control", "placeholder" => "Enter your message here..."]) }}
 					{{ Form::submit("Send", ["class" => "btn btn-block btn-success"]) }}
 				{{ Form::close() }}
 			</div>
